@@ -91,3 +91,10 @@ void debug_out(Head H, Tail... T) {
 #else
 #define debug(...) 42
 #endif*/
+
+/*#ifndef ONLINE_JUDGE
+#include "debug.h"
+//#define debug(x)
+#else
+#define debug(x)
+#endif*/
