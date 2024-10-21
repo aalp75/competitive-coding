@@ -12,25 +12,30 @@ int MAX_INT = 1e9;
  * modular expression
  */
 
-ll add(const ll& x, const ll& y) { 
+ll add(const ll& x, const ll& y) { // x + y
     return (x + y) % MOD; 
 }
 
-ll substract(const ll& x, const ll& y) { 
+ll substract(const ll& x, const ll& y) { // x - y
     return(x - y + MOD) % MOD;
 }
 
-ll mul(const ll& x, const ll& y) { 
+ll mul(const ll& x, const ll& y) { // x * y
     return (x * y) % MOD; 
 }
 
-ll inverse(const ll& x) { 
+ll inverse(const ll& x) { // 1 / x
     return x <= 1 ? x : MOD - (ll)(MOD / x) * inverse(MOD % x) % MOD; 
+}
+
+ll div(const ll& x, const ll& y) { // x / y
+    return mul(x, inverse(y));
 }
 
 /**
  * dfs
  */
+
 vector<bool> visited(N, false);
 
 void dfs(vector<vector<int>>& adj, int node) {
