@@ -2,37 +2,35 @@
 
 using namespace std;
 
-typedef long long ll;
-
-ll MOD = 1e9 + 7;
+long long MOD = 1e9 + 7;
 const int N = 1e3;
-int MAX_INT = 1e9;
+long long INF = 1e9;
 
 /**
  * modular operation
  */
 
-ll add(const ll& x, const ll& y) { // x + y
+long long add(const long long& x, const long long& y) { // x + y
     return (x + y) % MOD; 
 }
 
-ll substract(const ll& x, const ll& y) { // x - y
+long long substract(const long long& x, const long long& y) { // x - y
     return(x - y + MOD) % MOD;
 }
 
-ll mul(const ll& x, const ll& y) { // x * y
+long long mul(const long long& x, const long long& y) { // x * y
     return (x * y) % MOD; 
 }
 
-ll inverse(const ll& x) { // 1 / x
-    return x <= 1 ? x : MOD - (ll)(MOD / x) * inverse(MOD % x) % MOD; 
+long long inverse(const long long& x) { // 1 / x
+    return x <= 1 ? x : MOD - (long long)(MOD / x) * inverse(MOD % x) % MOD; 
 }
 
-ll division(const ll& x, const ll& y) { // x / y
+long long division(const long long& x, const long long& y) { // x / y
     return mul(x, inverse(y));
 }
 
-ll fast_exponentiation(const ll& x, const ll& y) { // x ^ y
+long long fast_exponentiation(const long long& x, const long long& y) { // x ^ y
     if (y == 0) return 1;
     if (y == 1) return x;
     if (y % 2 == 0) {
@@ -45,12 +43,12 @@ ll fast_exponentiation(const ll& x, const ll& y) { // x ^ y
  * modular arithmetic
  */
 
-ll gcd(const ll& x, const ll& y) {
+long long gcd(const long long& x, const long long& y) {
     if (y == 0) return x;
     return gcd(y, x % y);
 }
 
-ll lcm(const ll& x, const ll& y) {
+long long lcm(const long long& x, const long long& y) {
     return x / gcd(x, y) * y;
 }
 
@@ -59,12 +57,12 @@ ll lcm(const ll& x, const ll& y) {
  * 
  * MOD = 1e9 + 9 is recommended
  * base = 2 for binary string
- * base = 31 for low characters string
+ * base = 31 for lowercase characters string
  */
 
-ll compute_hash(vector<int>& s, const ll& base) {
-    ll hash_value = 0;
-    ll base_power = 1;
+long long compute_hash(vector<int>& s, const long long& base) {
+    long long hash_value = 0;
+    long long base_power = 1;
     for (auto value : s) {
         hash_value = add(hash_value, mul(value, base_power));
         base_power = mul(base_power, base);
@@ -72,11 +70,11 @@ ll compute_hash(vector<int>& s, const ll& base) {
     return hash_value;
 }
 
-ll compute_hash(const string& s, const ll& base) {
-    ll hash_value = 0;
-    ll base_power = 1;
+long long compute_hash(const string& s, const long long& base) {
+    long long hash_value = 0;
+    long long base_power = 1;
     for (auto c : s) {
-        ll value = c -'a' + 1;
+        long long value = c -'a' + 1;
         hash_value = add(hash_value, mul(value, base_power));
         base_power = mul(base_power, base);
     }
@@ -94,6 +92,38 @@ void dfs(vector<vector<int>>& adj, int node) {
     visited[node] = true;
     for (auto neigh : adj[node]) {
         dfs(adj, neigh);
+    }
+}
+
+/**
+ * Dijkstra
+ * 
+ * graph is define on 1-indexed array
+ */
+
+void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
+
+    vector<bool> visited(n + 1, false);
+    vector<long long> distance(n + 1, INF);
+
+    priority_queue<pair<long long, int>> q;
+
+    q.push({0, initial_node});
+    distance[initial_node] = 0;
+
+    while (!q.empty()) {
+        int node = q.top().second; q.pop();
+        if (visited[node]) continue;
+        visited[node] = true;
+
+        for (auto neigh : adj[node]) {
+            int next = neigh.first;
+            long long weight = neigh.second;
+            if (distance[node] + weight < distance[next]) {
+                distance[next] = distance[node] + weight;
+                q.push({-distance[next], next});
+            }
+        }
     }
 }
 
