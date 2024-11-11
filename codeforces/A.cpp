@@ -19,7 +19,6 @@ void preprocess() {
 
 void solve(int test_case) {
     debug(test_case);
-    int x = 3;
 }
 
 int main() {
