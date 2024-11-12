@@ -1,1 +1,1 @@
-Library code for programming contests
+Library code for competitive coding
