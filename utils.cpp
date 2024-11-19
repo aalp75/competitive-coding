@@ -11,7 +11,7 @@ long long INF = 1e9;
  */
 
 long long add(const long long& x, const long long& y) { // x + y
-    return (x + y) % MOD; 
+    return (x + y + MOD) % MOD; 
 }
 
 long long substract(const long long& x, const long long& y) { // x - y
