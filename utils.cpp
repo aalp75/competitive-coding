@@ -19,7 +19,7 @@ long long substract(const long long& x, const long long& y) { // x - y
 }
 
 long long mul(const long long& x, const long long& y) { // x * y
-    return (x * y) % MOD; 
+    return ((x % MOD) * (y % MOD)) % MOD;
 }
 
 long long inverse(const long long& x) { // 1 / x
