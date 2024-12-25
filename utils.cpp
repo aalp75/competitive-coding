@@ -96,6 +96,37 @@ void dfs(vector<vector<int>>& adj, int node) {
 }
 
 /**
+ * disjoint set union (dsu)
+ */
+
+vector<int> linker(N);
+vector<int> length(N);
+
+void initialize() {
+    for (int i = 1; i <= n; i++) linker[i] = i;
+    for (int i = 1; i <= n; i++) length[i] = 1;
+}
+
+int find(int x) {
+    while (x != linker[x]) 
+        x = linker[x];
+    return x;
+}
+
+bool same(int a, int b) {
+    return find(a) == find(b);
+}
+
+void unite(int a, int b) {
+    a = find(a);
+    b = find(b);
+    if (length[a] < length[b]) 
+        swap(a,b);
+    length[a] += length[b];
+    linker[b] = a;
+}
+
+/**
  * Dijkstra
  * 
  * graph is define on 1-indexed array
