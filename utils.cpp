@@ -4,7 +4,7 @@ using namespace std;
 
 long long MOD = 1e9 + 7;
 const int N = 1e3;
-long long INF = 1e9;
+const long long INF = 1e9;
 
 /**
  * modular operation
@@ -103,6 +103,7 @@ vector<int> linker(N);
 vector<int> length(N);
 
 void initialize() {
+    int n;
     for (int i = 1; i <= n; i++) linker[i] = i;
     for (int i = 1; i <= n; i++) length[i] = 1;
 }
@@ -165,26 +166,46 @@ void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
 vector<int> tree(N);
 int n;
 
-int compute(int a, int b) {
-    a += n; b += n;
-    int s = 0;
-    while (a <= b) {
-        if (a % 2 == 1) 
-                s += tree[a++];
-        if (b % 2 == 0) 
-                s += tree[b--];
-        a /= 2; b /= 2;
+int compute(int left, int right) {
+    left += n; right += n;
+    int res = 0;
+    while (left <= right) {
+        if (left % 2 == 1) 
+                res += tree[left++];
+        if (right % 2 == 0) 
+                res += tree[right--];
+        left /= 2; right /= 2;
     }
-    return s;
+    return res;
 }
 
-void update(int k, int x) {
-    k += n;
-    tree[k] += x;
-    for (k /= 2; k >= 1; k /= 2) {
-        tree[k] = tree[2 * k] + tree[2 * k + 1];
+void update(int index, int val) {
+    index += n;
+    tree[index] += val;
+    for (index /= 2; index >= 1; index /= 2) {
+        tree[index] = tree[2 * index] + tree[2 * index + 1];
     }
 }
+
+/**
+ * custom hash function to avoid to get hacked
+ * based on http://xorshift.di.unimi.it/splitmix64.c
+ * can be used in unordered_map: unordered_map<int, int, custom_hash>
+ */
+
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+ 
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
 
 /**
  * 
