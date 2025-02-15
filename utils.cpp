@@ -5,6 +5,7 @@ using namespace std;
 long long MOD = 1e9 + 7;
 const int N = 1e3;
 const long long INF = 1e9;
+int n;
 
 /**
  * modular operation
@@ -126,9 +127,10 @@ vector<int> linker(N);
 vector<int> length(N);
 
 void initialize() {
-    int n;
-    for (int i = 1; i <= n; i++) linker[i] = i;
-    for (int i = 1; i <= n; i++) length[i] = 1;
+    for (int i = 1; i <= n; i++) {
+        linker[i] = i;
+        length[i] = 1;
+    }
 }
 
 int find(int x) {
@@ -144,6 +146,7 @@ bool same(int a, int b) {
 void unite(int a, int b) {
     a = find(a);
     b = find(b);
+    if (a == b) return;
     if (length[a] < length[b]) 
         swap(a,b);
     length[a] += length[b];
@@ -187,7 +190,7 @@ void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
  */
 
 vector<int> tree(N);
-int n;
+//int n;
 
 int compute(int left, int right) {
     left += n; right += n;
@@ -209,6 +212,39 @@ void update(int index, int val) {
         tree[index] = tree[2 * index] + tree[2 * index + 1];
     }
 }
+
+/**
+ * find centroids of a tree
+ * 1 or 2 centroids maximum (Jordan theorhem)
+ */
+
+vector<int> find_centroids(vector<vector<int>>& adj, int n, int node) {
+    vector<int> centroids;
+    vector<int> sz(n + 1, 0);
+    vector<bool> is_centroid(n + 1, false);
+    auto dfs = [&](int node, int parent, auto&& dfs) -> void {
+        sz[node] = 1;
+        for (auto neigh : adj[node]) {
+            if (neigh == parent) continue;
+            dfs(neigh, node, dfs);
+            sz[node] += sz[neigh];
+            if (sz[neigh] > n / 2) {
+                is_centroid[node] = false;
+            }
+        }
+        if (n - sz[node] > n / 2) {
+            is_centroid[node] = false;
+        }
+        if (is_centroid[node]) {
+            centroids.push_back(node);
+        }
+    };    
+
+    dfs(1, -1, dfs);
+
+    return centroids;
+}
+
 
 /**
  * custom hash function to avoid to get hacked

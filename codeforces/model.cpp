@@ -3,7 +3,7 @@
 #ifndef ONLINE_JUDGE
 #include "../debug.h"
 #else
-#define debug(x)
+#define debug(...)
 #endif
 
 using namespace std;
