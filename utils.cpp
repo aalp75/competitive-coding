@@ -187,6 +187,8 @@ void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
 
 /**
  * segment tree
+ * 
+ * defined as 0-indexed array
  */
 
 vector<int> tree(N);
@@ -215,13 +217,14 @@ void update(int index, int val) {
 
 /**
  * find centroids of a tree
+ * 
  * 1 or 2 centroids maximum (Jordan theorhem)
  */
 
-vector<int> find_centroids(vector<vector<int>>& adj, int n, int node) {
+vector<int> find_centroids(vector<vector<int>>& adj, int n) {
     vector<int> centroids;
     vector<int> sz(n + 1, 0);
-    vector<bool> is_centroid(n + 1, false);
+    vector<bool> is_centroid(n + 1, true);
     auto dfs = [&](int node, int parent, auto&& dfs) -> void {
         sz[node] = 1;
         for (auto neigh : adj[node]) {
@@ -241,13 +244,13 @@ vector<int> find_centroids(vector<vector<int>>& adj, int n, int node) {
     };    
 
     dfs(1, -1, dfs);
-
+    
     return centroids;
 }
 
-
 /**
  * custom hash function to avoid to get hacked
+ * 
  * based on http://xorshift.di.unimi.it/splitmix64.c
  * can be used in unordered_map: unordered_map<int, int, custom_hash>
  */
@@ -267,7 +270,29 @@ struct custom_hash {
 };
 
 /**
+ * compute the binary representation of a number
  * 
+ * e.g. binary_representation(6) returns {0, 0, ...0, 1, 1, 0}
+ */
+
+int B = 32;
+
+vector<int> binary_representation(long long x) {
+    vector<int> res(B);
+    for (int i = 0; i < B; i++) {
+        int p2 = 1 << i;
+        if ((x & p2) > 0) {
+            res[B - 1 - i] = 1;
+        }
+        else {
+            res[B - 1 - i] = 0;
+        }
+    }
+    return res;
+}
+
+/**
+ *  
  */
 
 int main() {
