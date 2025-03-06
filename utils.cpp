@@ -120,6 +120,28 @@ void dfs(vector<vector<int>>& adj, int node) {
 }
 
 /**
+ * bfs
+ */
+
+vector<int> bfs(vector<vector<int>>& adj, int n, int node) {
+    vector<int> dist(n + 1, INF);
+    queue<int> nodes;
+    visited[node] = true;
+    while (!nodes.empty()) {
+        int node = nodes.front();
+        nodes.pop();
+        for (auto neigh : adj[node]) {
+            if (visited[neigh]) continue;
+            visited[neigh] = true;
+            dist[neigh] = 1 + dist[node];
+            nodes.push(neigh);
+        }
+    }
+    return dist;
+}
+
+
+/**
  * disjoint set union (dsu)
  */
 
