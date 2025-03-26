@@ -35,9 +35,9 @@ long long fast_exponentiation(const long long& x, const long long& y) { // x ^ y
     if (y == 0) return 1;
     if (y == 1) return x;
     if (y % 2 == 0) {
-        return fast_exponentiation(mul(x, x), y / 2);
+        return fast_exponentiation(x * x % MOD, y / 2);
     }
-    return mul(x, fast_exponentiation(x, y - 1));
+    return x * fast_exponentiation(x, y - 1) % MOD;
 }
 
 /**
