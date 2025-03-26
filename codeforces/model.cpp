@@ -11,8 +11,9 @@ using namespace std;
 typedef long long ll;
 
 ll MOD = 1e9 + 7;
-const int N = 4e5 + 10;
-ll INF = 1e18;
+const int N = 2e5 + 10;
+int INF32 = 1e15;
+ll INF64 = 1e18;
 
 void preprocess() {
 }
