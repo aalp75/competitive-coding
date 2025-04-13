@@ -13,14 +13,14 @@ def input_int():
     return(int(input()))
 
 def input_list():
-    return(list(map(int,input().split())))
+    return(list(map(int, input().split())))
 
 def input_string():
     s = input()
     return(list(s[:len(s) - 1]))
 
 def intputs_int(): # space seperated integer variable inputs
-    return(map(int,input().split()))
+    return(map(int, input().split()))
 
 def solve(test_case):
     debug(test_case)
