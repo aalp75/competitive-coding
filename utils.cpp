@@ -4,7 +4,8 @@ using namespace std;
 
 long long MOD = 1e9 + 7;
 const int N = 1e3;
-const long long INF = 1e9;
+const long long INF32 = 1e9;
+const long long INF64 = 1e18;
 int n;
 
 /**
@@ -77,6 +78,51 @@ long long lcm(const long long& x, const long long& y) {
 }
 
 /**
+ * sieve related algorithms
+ */
+
+vector<int> primes;
+
+void prime_sieve() {
+    vector<bool> is_prime(N, true);
+    for (int i = 2; i < N; i++) {
+        if (!is_prime[i]) continue;
+        primes.push_back(i);
+        for (int j = 2 * i; j < N; j += i) {
+            is_prime[j] = false;
+        }
+    }
+}
+
+vector<int> prime_factors(N, 1);
+
+void prime_factor_sieve() {
+    vector<bool> is_prime(N, true);
+    for (int i = 2; i < N; i++) {
+        if (!is_prime[i]) continue;
+        primes.push_back(i);
+        prime_factors[i] = i;
+        for (int j = 2 * i; j < N; j += i) {
+            is_prime[j] = false;
+            if (prime_factors[j] == 1) prime_factors[j] = i;
+        }
+    }
+}
+
+vector<vector<int>> divisors(N);
+
+void divisor_sieve() {
+    for (int i = 1; i * i < N; i++) {
+        for (int j = i * i; j < N; j += i) {
+            divisors[j].push_back(i);
+            if (j / i != i) { // avoid duplicates for perfect squares
+                divisors[j].push_back(j / i);
+            }
+        }
+    }
+}
+
+/**
  * polynomial hashing
  * 
  * MOD = 1e9 + 9 is recommended
@@ -124,7 +170,7 @@ void dfs(vector<vector<int>>& adj, int node) {
  */
 
 vector<int> bfs(vector<vector<int>>& adj, int n, int node) {
-    vector<int> dist(n + 1, INF);
+    vector<int> dist(n + 1, INF32);
     queue<int> nodes;
     visited[node] = true;
     while (!nodes.empty()) {
@@ -184,7 +230,7 @@ void unite(int a, int b) {
 void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
 
     vector<bool> visited(n + 1, false);
-    vector<long long> distance(n + 1, INF);
+    vector<long long> distance(n + 1, INF32);
 
     priority_queue<pair<long long, int>> q;
 
