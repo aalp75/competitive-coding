@@ -24,8 +24,6 @@ def intputs_int(): # space seperated integer variable inputs
 
 def solve(test_case):
     debug(test_case)
-    x = input_int()
-    print(x)
 
 def main():
     test_case = 1
