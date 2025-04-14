@@ -112,12 +112,9 @@ void prime_factor_sieve() {
 vector<vector<int>> divisors(N);
 
 void divisor_sieve() {
-    for (int i = 1; i * i < N; i++) {
-        for (int j = i * i; j < N; j += i) {
+    for (int i = 1; i < N; i++) {
+        for (int j = i; j < N; j += i) {
             divisors[j].push_back(i);
-            if (j / i != i) { // avoid duplicates for perfect squares
-                divisors[j].push_back(j / i);
-            }
         }
     }
 }
