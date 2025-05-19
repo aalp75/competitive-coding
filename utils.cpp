@@ -12,33 +12,36 @@ int n;
  * modular operation
  */
 
-long long add(const long long& x, const long long& y) { // x + y
+long long add(const long long x, const long long y) { // x + y
     return (x + y + MOD) % MOD; 
 }
 
-long long substract(const long long& x, const long long& y) { // x - y
+long long substract(const long long x, const long long y) { // x - y
     return(x - y + MOD) % MOD;
 }
 
-long long mul(const long long& x, const long long& y) { // x * y
+long long mul(const long long x, const long long y) { // x * y
     return ((x % MOD) * (y % MOD)) % MOD;
 }
 
-long long inverse(const long long& x) { // x ^ -1 based on Euclidean division
+long long inverse(const long long x) { // x ^ -1 based on Euclidean division
     return x <= 1 ? x : MOD - (MOD / x) * inverse(MOD % x) % MOD;
 }
 
-long long division(const long long& x, const long long& y) { // x / y
+long long division(const long long x, const long long y) { // x / y
     return mul(x, inverse(y));
 }
 
-long long fast_exponentiation(const long long& x, const long long& y) { // x ^ y
-    if (y == 0) return 1;
-    if (y == 1) return x;
-    if (y % 2 == 0) {
-        return fast_exponentiation(x * x % MOD, y / 2);
+long long fast_exponentiation(long long base, long long exp) { // base ^ exp
+    base %= MOD;
+    long long res  = 1;
+    while (exp > 0) {
+        if (exp & 1) 
+            res = res * base % MOD;
+        base = base * base % MOD;
+        exp /= 2;
     }
-    return x * fast_exponentiation(x, y - 1) % MOD;
+    return res;
 }
 
 /**
