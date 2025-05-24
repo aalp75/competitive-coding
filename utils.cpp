@@ -284,6 +284,74 @@ void update(int index, int val) {
 }
 
 /**
+ * trie
+ * 
+ * arrays implementation
+ */
+
+class Trie {
+
+    static const int B = 30;
+    static const int MAXNODES = 3e5 * 31 + 10;
+    
+    int nxt[MAXNODES][2];
+    int cnt[MAXNODES];
+    int node_cnt = 1;
+
+    void initialization() {
+        nxt[0][0] = nxt[0][1] = 0;
+        cnt[0] = 0;
+    }
+
+    int new_node() {
+        int index = node_cnt;
+        node_cnt++;
+        nxt[index][0] = nxt[index][1] = 0;
+        cnt[index] = 0;
+        return index;
+    }
+
+    void insert(int val) {
+        int curr = 0;
+        for (int b = B; b >= 0; b--) {
+            int bit = (val >> b) & 1;
+            if (!nxt[curr][bit]) {
+                nxt[curr][bit] = new_node();
+            }
+            curr = nxt[curr][bit];
+            cnt[curr]++;
+        }
+    }
+
+    int search(int val) {
+        int curr = 0;
+        int res = 0;
+        for (int b = B; b >= 0; b--) {
+            int bit = (val >> b) & 1;
+            if (nxt[curr][bit] != 0 && cnt[nxt[curr][bit]] > 0) {
+                curr = nxt[curr][bit];
+                res += (bit << b);
+            }
+            else {
+                curr = nxt[curr][bit ^ 1];
+                res += ((bit ^ 1) << b);
+            }
+        }
+        return res;
+    }
+
+    void remove(int val) {
+        int curr = 0;
+        cnt[curr]--;    // using one key, so decrement at root
+        for (int b = B; b >= 0; b--) {
+            int bit = (val >> b) & 1;
+            curr = nxt[curr][bit];
+            cnt[curr]--;
+        }
+    }
+};
+
+/**
  * find centroids of a tree
  * 
  * 1 or 2 centroids maximum (Jordan theorhem)
