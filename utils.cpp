@@ -232,13 +232,13 @@ void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
     vector<bool> visited(n + 1, false);
     vector<long long> distance(n + 1, INF32);
 
-    priority_queue<pair<long long, int>> q;
+    priority_queue<pair<long long, int>> pq;
 
-    q.push({0, initial_node});
+    pq.push({0, initial_node});
     distance[initial_node] = 0;
 
-    while (!q.empty()) {
-        int node = q.top().second; q.pop();
+    while (!pq.empty()) {
+        int node = pq.top().second; pq.pop();
         if (visited[node]) continue;
         visited[node] = true;
 
@@ -247,7 +247,7 @@ void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
             long long weight = neigh.second;
             if (distance[node] + weight < distance[next]) {
                 distance[next] = distance[node] + weight;
-                q.push({-distance[next], next});
+                pq.push({-distance[next], next});
             }
         }
     }
