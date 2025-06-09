@@ -227,10 +227,10 @@ void unite(int a, int b) {
  * graph is define on 1-indexed array
  */
 
-void dijkstra(vector<vector<pair<long, int>>>& adj, int initial_node, int n) {
+void dijkstra(vector<vector<pair<int, int>>>& adj, int initial_node, int n) {
 
     vector<bool> visited(n + 1, false);
-    vector<long long> distance(n + 1, INF32);
+    vector<long long> distance(n + 1, INF64);
 
     priority_queue<pair<long long, int>> pq;
 
