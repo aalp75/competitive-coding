@@ -12,6 +12,10 @@ int n;
  * modular operation
  */
 
+long long mod(const long long x, const long long m) { // x % m
+    return (x % m + m) % m;
+}
+
 long long add(const long long x, const long long y) { // x + y
     return (x + y + MOD) % MOD; 
 }
