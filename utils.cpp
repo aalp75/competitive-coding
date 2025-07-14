@@ -189,15 +189,14 @@ string manacher(string s) {
     int best_radius = 0;
     int best_center = 0;
     for (int i = 0; i < res.size(); i++) {
-        int R = res[i];
-        if (R > best_radius) {
+        if (res[i] > best_radius) {
             best_radius = res[i];
             best_center = i;
         }
     }
 
     int start = (best_center - (best_radius - 1)) / 2;
-    int len   = best_radius - 1;
+    int len = best_radius - 1;
 
     return s.substr(start, len);
 }
