@@ -49,6 +49,19 @@ long long fast_exponentiation(long long base, long long exp) { // base ^ exp
 }
 
 /**
+ * modular arithmetic
+ */
+
+ long long gcd(const long long& x, const long long& y) {
+    if (y == 0) return x;
+    return gcd(y, x % y);
+}
+
+long long lcm(const long long& x, const long long& y) {
+    return x / gcd(x, y) * y;
+}
+
+/**
  * precompute all factorial and inverse factorial to compute 
  * binomial coefficient modulo a prime number in O(1)
  */
@@ -69,19 +82,6 @@ void precompute_fact() {
 
 int binomial_coeff(int k, int n) {
     return fact[n] * (fact_inv[n - k] * fact_inv[k] % MOD) % MOD;
-}
-
-/**
- * modular arithmetic
- */
-
-long long gcd(const long long& x, const long long& y) {
-    if (y == 0) return x;
-    return gcd(y, x % y);
-}
-
-long long lcm(const long long& x, const long long& y) {
-    return x / gcd(x, y) * y;
 }
 
 /**
@@ -156,6 +156,53 @@ long long compute_hash(const string& s, const long long& base) {
 }
 
 /**
+ * longest substring palindrome (manacher's algorithm)
+ * either return string, either return the complete array
+ */
+
+vector<int> manacher_odd(string s) {
+    int n = s.size();
+    s = "$" + s + "^"; // used to handle end of string 
+    vector<int> p(n + 2);
+    int l = 0, r = 1;
+    for(int i = 1; i <= n; i++) {
+        p[i] = min(r - i, p[l + (r - i)]);
+        while(s[i - p[i]] == s[i + p[i]]) {
+            p[i]++;
+        }
+        if(i + p[i] > r) {
+            l = i - p[i], r = i + p[i];
+        }
+    }
+    return vector<int>(p.begin() + 1, p.end() - 1);
+}
+
+string manacher(string s) {
+    string t;
+    for(auto c: s) {
+        t += string("#") + c;
+    }
+    t += '#';
+    auto res = manacher_odd(t);
+    res = vector<int>(begin(res) + 1, end(res) - 1);
+
+    int best_radius = 0;
+    int best_center = 0;
+    for (int i = 0; i < res.size(); i++) {
+        int R = res[i];
+        if (R > best_radius) {
+            best_radius = res[i];
+            best_center = i;
+        }
+    }
+
+    int start = (best_center - (best_radius - 1)) / 2;
+    int len   = best_radius - 1;
+
+    return s.substr(start, len);
+}
+
+/**
  * dfs
  */
 
@@ -198,7 +245,7 @@ vector<int> bfs(vector<vector<int>>& adj, int n, int node) {
 vector<int> linker(N);
 vector<int> length(N);
 
-void initialize() {
+void initialize(int n) {
     for (int i = 1; i <= n; i++) {
         linker[i] = i;
         length[i] = 1;
