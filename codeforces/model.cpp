@@ -31,8 +31,7 @@ int main() {
         preprocess();
         solve(i);
     }
-    string exit_status = "Successful";
-    debug(exit_status);
+    cerr << "Successful\n";
     return 0;
 }
 
