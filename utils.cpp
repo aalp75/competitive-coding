@@ -597,7 +597,7 @@ long long inversion_count(vector<int>& v, int l, int r) {
  *  indices are kept in memory in case output requires indices 
  */
 
- vector<int> find_closest(vector<pair<pair<int, int>, int>>& points, int n) {
+vector<int> find_closest(vector<pair<pair<int, int>, int>>& points, int n) {
     
     auto compute_distance = [&](pair<int, int> p1, pair<int, int> p2) -> long long {
         long long dist = (p1.first - p2.first) * (p1.first - p2.first) \
@@ -635,7 +635,7 @@ long long inversion_count(vector<int>& v, int l, int r) {
         neighbours.insert({{points[i].first.second, points[i].first.first}, points[i].second});
     }
     return closest_points;
- }
+}
 
 /**
  *  
