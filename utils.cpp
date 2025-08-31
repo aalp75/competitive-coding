@@ -462,7 +462,8 @@ vector<int> find_centroids(vector<vector<int>>& adj, int n) {
 set<pair<int, int>> find_bridges(vector<vector<int>>& adj) {
     int n = adj.size();
     vector<bool> visited(n ,false);
-    vector<int> tin(n, 0), low(n, 0);
+    vector<int> tin(n, 0);
+    vector<int> low(n, 0);
     int timer = 1;
 
     set<pair<int, int>> bridges;
