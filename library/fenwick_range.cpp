@@ -4,7 +4,7 @@ using namespace std;
 
 template<typename T>
 struct FenwickTree {
-    vector<T> bit {}; // binary indexed tree
+    vector<T> bit; // binary indexed tree
     int n;
 
     FenwickTree(int n_) : n(n_){
