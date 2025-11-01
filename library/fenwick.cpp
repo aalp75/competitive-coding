@@ -2,8 +2,14 @@
 
 using namespace std;
 
-// base on cp-algorithms
-// https://cp-algorithms.com/data_structures/fenwick.html
+/**
+ * fenwick tree
+ * 
+ * defined as 0-indexed array
+ * 
+ * based on cp-algorithms
+ * https://cp-algorithms.com/data_structures/fenwick.html
+ */
 
 template<typename T>
 struct FenwickTree {
@@ -14,9 +20,9 @@ struct FenwickTree {
         bit.resize(n);
     }
 
-    FenwickTree(vector<T> const &a) : FenwickTree(a.size()) {
-        for (size_t i = 0; i < a.size(); i++)
-            add(i, a[i]);
+    FenwickTree(const vector<T>& v) : FenwickTree(v.size()) {
+        for (size_t i = 0; i < v.size(); i++)
+            add(i, v[i]);
     }
 
     T sum(int r) {
@@ -37,9 +43,8 @@ struct FenwickTree {
 };
 
 int main() {
-    vector<int> a {1, 2, 3, 4, 5, 6};
-    int n = a.size();
-    FenwickTree<int> fenwick(a);
+    vector<int> v{1, 2, 3, 4, 5, 6};
+    FenwickTree<int> fenwick(v);
 
     int s = fenwick.sum(0, 4);
     cout << "a[0] + ... + a[4] = " << s << '\n';
