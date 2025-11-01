@@ -2,6 +2,9 @@
 
 using namespace std;
 
+// base on cp-algorithms
+// https://cp-algorithms.com/data_structures/fenwick.html
+
 template<typename T>
 struct FenwickTree {
     vector<T> bit;  // binary indexed tree
