@@ -40,13 +40,14 @@ int main() {
     int n = a.size();
     FenwickTree<int> fenwick(a);
 
-    for (int i = 0; i < n; i++) {
+    for (size_t i = 0; i < n; i++) {
         cout << "a[" << i << "] = " << fenwick.point_query(i) << '\n';
     }
 
     // add 2 to all a[i] such that i is in [0, 3]
     fenwick.range_add(0, 3, 2);
-    for (int i = 0; i < n; i++) {
+
+    for (size_t i = 0; i < n; i++) {
         cout << "a[" << i << "] = " << fenwick.point_query(i) << '\n';
     }
     return 0;
