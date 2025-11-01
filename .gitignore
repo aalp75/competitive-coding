@@ -1,2 +1,8 @@
 *.prob
 *.json
+# Ignore all files in /codeforces/ without a dot
+codeforces/[!.]*
+!codeforces/*.* 
+# Ignore all files in /library/ without a dot
+library/[!.]*
+!library/*.*
