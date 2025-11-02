@@ -6,6 +6,7 @@ using namespace std;
  * segment tree
  * 
  * defined as 0-indexed array
+ * bottom to top approach
  */
 
 template<typename T>
