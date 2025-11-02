@@ -11,8 +11,8 @@ using namespace std;
  * tl = tree left, tr = tree right, tm = tree mid
  * 
  * operations:
- * - compute(l, r) = compute(1, 0, n - 1, l, r)
- * - update(l, r, val) = update(1, 0, n - 1, l, r, val)
+ * - compute f([l, r]): compute(1, 0, n - 1, l, r)
+ * - update v[i] += x for i in [l, r]: update(1, 0, n - 1, l, r, x)
  */
 
 template<typename T>
@@ -34,41 +34,42 @@ struct SegTreeLazy {
         return left + right;
     }
 
-    void build(const vector<T>& a, int v, int tl, int tr) {
+    void build(const vector<T>& v, int node, int tl, int tr) {
         if (tl == tr) {
-            tree[v] = a[tl];
-        } else {
+            tree[node] = v[tl];
+        } 
+        else {
             int tm = (tl + tr) / 2;
-            build(a, 2 * v, tl, tm);
-            build(a, 2 * v + 1, tm + 1, tr);
-            tree[v] = merge(tree[2 * v], tree[2 * v + 1]);
+            build(v, 2 * node, tl, tm);
+            build(v, 2 * node + 1, tm + 1, tr);
+            tree[node] = merge(tree[2 * node], tree[2 * node + 1]);
         }
     }
 
-    void push(int v, int tl, int tr) {
+    void push(int node, int tl, int tr) {
         int tm = (tl + tr) / 2;
         
         // scaled by number of elements
-        tree[2 * v] = merge(tree[2 * v], lazy[v] * (tm - tl + 1));
-        lazy[2 * v] = merge(lazy[v], lazy[2 * v]);
-        tree[2 * v + 1] = merge(tree[2 * v + 1], lazy[v] * (tr - (tm + 1) + 1));
-        lazy[2 * v + 1] = merge(lazy[v], lazy[2 * v + 1]);
-        lazy[v] = T();
+        tree[2 * node] = merge(tree[2 * node], lazy[node] * (tm - tl + 1));
+        lazy[2 * node] = merge(lazy[node], lazy[2 * node]);
+        tree[2 * node + 1] = merge(tree[2 * node + 1], lazy[node] * (tr - (tm + 1) + 1));
+        lazy[2 * node + 1] = merge(lazy[node], lazy[2 * node + 1]);
+        lazy[node] = T();
     }
 
-    void update(int v, int tl, int tr, int l, int r, T add) {
+    void update(int node, int tl, int tr, int l, int r, T add) {
         if (l > r) 
             return;
         if (l == tl && tr == r) {
-            tree[v] += add * (tr - tl + 1);
-            lazy[v] += add;
+            tree[node] += add * (tr - tl + 1); // scaled by numbers of elements
+            lazy[node] += add;
         } 
         else {
-            push(v, tl, tr);
+            push(node, tl, tr);
             int tm = (tl + tr) / 2;
-            update(2 * v, tl, tm, l, min(r, tm), add);
-            update(2 * v + 1, tm + 1, tr, max(l, tm + 1), r, add);
-            tree[v] = merge(tree[2 * v], tree[2 * v + 1]);
+            update(2 * node, tl, tm, l, min(r, tm), add);
+            update(2 * node + 1, tm + 1, tr, max(l, tm + 1), r, add);
+            tree[node] = merge(tree[2 * node], tree[2 * node + 1]);
         }
     }
 

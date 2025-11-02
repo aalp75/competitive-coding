@@ -32,10 +32,12 @@ struct SegTree {
         left += n; right += n;
         T res = 0;
         while (left <= right) {
-            if (left % 2 == 1) 
+            if (left % 2 == 1) {
                     res = merge(res, tree[left++]);
-            if (right % 2 == 0) 
+            }
+            if (right % 2 == 0) {
                     res = merge(res, tree[right--]);
+            }
             left /= 2; right /= 2;
         }
         return res;
