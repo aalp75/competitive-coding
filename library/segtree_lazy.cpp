@@ -57,33 +57,33 @@ struct SegTreeLazy {
         lazy[node] = T();
     }
 
-    void update(int node, int tl, int tr, int l, int r, T add) {
+    void update(int node, int tl, int tr, int l, int r, T val) {
         if (l > r) 
             return;
         if (l == tl && tr == r) {
-            tree[node] += add * (tr - tl + 1); // scaled by numbers of elements
-            lazy[node] += add;
+            tree[node] += val * (tr - tl + 1); // scaled by numbers of elements
+            lazy[node] += val;
         } 
         else {
             push(node, tl, tr);
             int tm = (tl + tr) / 2;
-            update(2 * node, tl, tm, l, min(r, tm), add);
-            update(2 * node + 1, tm + 1, tr, max(l, tm + 1), r, add);
+            update(2 * node, tl, tm, l, min(r, tm), val);
+            update(2 * node + 1, tm + 1, tr, max(l, tm + 1), r, val);
             tree[node] = merge(tree[2 * node], tree[2 * node + 1]);
         }
     }
 
-    T compute(int v, int tl, int tr, int l, int r) {
+    T compute(int node, int tl, int tr, int l, int r) {
         if (l > r) {
             return T();
         }
         if (l == tl && tr == r) {
-            return tree[v];
+            return tree[node];
         }
-        push(v, tl, tr);
+        push(node, tl, tr);
         int tm = (tl + tr) / 2;
-        return merge(compute(2 * v, tl, tm, l, min(r, tm)),
-                     compute(2 * v + 1, tm + 1, tr, max(l, tm+1), r));
+        return merge(compute(2 * node, tl, tm, l, min(r, tm)),
+                     compute(2 * node + 1, tm + 1, tr, max(l, tm+1), r));
     }
 };
 
