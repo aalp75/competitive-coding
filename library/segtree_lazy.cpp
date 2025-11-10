@@ -21,6 +21,8 @@ struct SegTreeLazy {
     vector<T> lazy;
     int n;
 
+    SegTreeLazy() : n(0) {}
+
     SegTreeLazy(int n_) : n(n_) {
         tree.resize(4 * n, T());
         lazy.resize(4 * n, T());
@@ -52,7 +54,7 @@ struct SegTreeLazy {
         // scaled by number of elements
         tree[2 * node] = merge(tree[2 * node], lazy[node] * (tm - tl + 1));
         lazy[2 * node] = merge(lazy[node], lazy[2 * node]);
-        tree[2 * node + 1] = merge(tree[2 * node + 1], lazy[node] * (tr - (tm + 1) + 1));
+        tree[2 * node + 1] = merge(tree[2 * node + 1], lazy[node] * (tr - tm));
         lazy[2 * node + 1] = merge(lazy[node], lazy[2 * node + 1]);
         lazy[node] = T();
     }
