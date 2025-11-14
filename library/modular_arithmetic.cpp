@@ -49,7 +49,7 @@ long long fast_exponentiation(long long base, long long exp) { // base ^ exp
  */
 
 long long mygcd(const long long& x, const long long& y) {
-    if (y == 0ll) return x;
+    if (y == 0) return x;
     return mygcd(y, x % y);
 }
 
