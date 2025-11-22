@@ -38,7 +38,7 @@ set<pair<int, int>> find_bridges(vector<vector<int>>& adj) {
                 parent_skipped = true;
                 continue;
             }
-            if (visited[neigh]) {
+            if (visited[neigh]) { // back edge
                 low[node] = min(low[node], tin[neigh]);
             }
             else {
@@ -92,7 +92,7 @@ set<int> find_articulation_points(vector<vector<int>>& adj) {
                 parent_skipped = true;
                 continue;
             }
-            if (visited[neigh]) {
+            if (visited[neigh]) { // back edge
                 low[node] = min(low[node], tin[neigh]);
             }
             else {
