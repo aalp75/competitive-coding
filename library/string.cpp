@@ -3,21 +3,32 @@
 using namespace std;
 
 /**
- * Manacher algorithm to find the longest palindromic substring in O(n)
+ * Manacher algorithm - longest palindrome substring in O(n)
  *
- * This function finds longest odd-length palindromes in the given string
+ * The function finds longest odd-length palindromes of a given string
  *
- * radius[i] = radius R such that s[i - (R - 1) .. i + (R - 1)] is the
+ * radius[i] = radius R such that s[i - (R - 1) ... i + (R - 1)] is the
  *             longest palindrome centered at i
  *
- * Example on "XABAV":
- *   index:   0 1 2 3 4
- *   string:  X A B A V
- *   radius[2] = 2  (palindrome "ABA", indices [1..3])
+ * Example: "ABAYABAX"
+ *   index:   0 1 2 3 4 5 6 7
+ *   string:  A B A Y A B A X
+ *   radius:  1 2 1 4 1 2 1 1
+ *   radius[1] = 2  (palindrome "ABA", indices [0...2])
+ *   radius[3] = 4  (palindrome "ABAYABA", indices [0...6])
  *
  * To handle even-length palindromes from the original string, 
  * first apply a transformation "ABAC" to "#A#B#A#C#",
  * then all palindromes become odd-length in the transformed string
+ * 
+ * Key idea:
+ *   If [L..R] is a known palindrome centered at C, then for any i < R;
+ *   the palindrome at i must be at equivalent to his mirror from the center
+ *   i.e radius[i] >= min(radius[2 * C - i], R - i)
+ *   Only extensions beyond R require new comparisons
+ *
+ * Complexity:
+ *   The right boundary only moves forward, so total expansions = O(n)
  */
 
 vector<int> manacher_odd(string s) {
@@ -58,7 +69,7 @@ vector<int> manacher_odd(string s) {
 }
 
 string manacher(string s) {
-    // transform the string
+    // transform the initial string
     string t;
     for(auto c: s) {
         t += string("#") + c;
@@ -80,7 +91,7 @@ string manacher(string s) {
     int left = best_center - best_radius + 1;
     int right = best_center + best_radius - 1;
 
-    string palindrome = "";
+    string palindrome;
 
     for (int i = left; i <= right; i++) {
         if (t[i] == '#') continue;
@@ -91,9 +102,15 @@ string manacher(string s) {
 }
 
 int main() {
-    string s = "vcabacsx";
-
+    string s = "ABAYABAX";
     string palindrome = manacher(s);
+    cout << "Initial string is: " << s << '\n';
+    cout << "Longest substring palindrome is: " << palindrome << '\n';
+
+    cout << '\n';
+
+    s = "AABBGDAADGBXF";
+    palindrome = manacher(s);
     cout << "Initial string is: " << s << '\n';
     cout << "Longest substring palindrome is: " << palindrome << '\n';
 
