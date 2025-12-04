@@ -22,9 +22,9 @@ using namespace std;
  * then all palindromes become odd-length in the transformed string
  * 
  * Key idea:
- *   If [L..R] is a known palindrome centered at C, then for any i < R;
- *   the palindrome at i must be at equivalent to his mirror from the center
- *   i.e radius[i] >= min(radius[2 * C - i], R - i)
+ *   If [L..R] is a known palindrome centered at C, then for any i < R:
+ *   the palindrome at i must be at least equivalent to its mirror from 
+ *   the center; i.e radius[i] >= min(radius[2 * C - i], R - i)
  *   Only extensions beyond R require new comparisons
  *
  * Complexity:
