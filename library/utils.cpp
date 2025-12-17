@@ -148,9 +148,9 @@ void divisor_sieve() {
 long long compute_hash(vector<int>& s, const long long& base) {
     long long hash_value = 0;
     long long base_power = 1;
-    for (auto value : s) {
-        hash_value = add(hash_value, mul(value, base_power));
-        base_power = mul(base_power, base);
+    for (int value : s) {
+        hash_value = (hash_value + value* base_power) % MOD;
+        base_power = base_power * base % MOD;
     }
     return hash_value;
 }
@@ -158,10 +158,10 @@ long long compute_hash(vector<int>& s, const long long& base) {
 long long compute_hash(const string& s, const long long& base) {
     long long hash_value = 0;
     long long base_power = 1;
-    for (auto c : s) {
+    for (char c : s) {
         long long value = c -'a' + 1;
-        hash_value = add(hash_value, mul(value, base_power));
-        base_power = mul(base_power, base);
+        hash_value = (hash_value + value* base_power) % MOD;
+        base_power = base_power * base % MOD;
     }
     return hash_value;
 }
@@ -208,19 +208,21 @@ vector<int> bfs(vector<vector<int>>& adj, int n, int node) {
  * disjoint set union (dsu)
  */
 
-vector<int> linker(N);
-vector<int> length(N);
+vector<int> parent;
+vector<int> length;
 
 void initialize(int n) {
-    for (int i = 1; i <= n; i++) {
-        linker[i] = i;
+    parent.resize(n + 1);
+    length.resize(n + 1);
+    for (int i = 0; i <= n; i++) {
+        parent[i] = i;
         length[i] = 1;
     }
 }
 
 int find(int x) {
-    while (x != linker[x]) 
-        x = linker[x];
+    while (x != parent[x])
+        x = parent[x];
     return x;
 }
 
@@ -232,10 +234,14 @@ void unite(int a, int b) {
     a = find(a);
     b = find(b);
     if (a == b) return;
-    if (length[a] < length[b]) 
-        swap(a,b);
-    length[a] += length[b];
-    linker[b] = a;
+    if (length[a] >= length[b]) {
+        length[a] += length[b];
+        parent[b] = a;
+    }
+    else {
+        length[b] += length[a];
+        parent[a] = b;
+    }
 }
 
 /**
