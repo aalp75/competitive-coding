@@ -5,7 +5,9 @@ using namespace std;
 /**
  * mod int generaric class
  * 
- * MOD needs to be prime in order to have an inverse
+ * MOD needs to be a prime number so every number has an inverse modulo MOD
+ * 
+ * ModInt<998244353> x = 3;
  * 
  * using mint = ModInt<998244353>
  * mint x = 3;
