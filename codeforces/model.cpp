@@ -10,7 +10,7 @@ using namespace std;
 
 using ll = long long;
 
-ll MOD = 1e9 + 7;
+const ll MOD = 1e9 + 7;
 int INF32 = 1e9 + 100;
 ll INF64 = 2e18+ 100;
 

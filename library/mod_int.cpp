@@ -30,13 +30,8 @@ struct ModInt {
     }
 
     // unary operators
-    ModInt operator+() const {
-        return *this;
-    }
-    
-    ModInt operator-() const {
-        return ModInt((val == 0) ? 0 : MOD - val);
-    }
+    ModInt operator+() const { return *this; }
+    ModInt operator-() const { return ModInt((val == 0) ? 0 : MOD - val); }
 
     // in-place operators
     ModInt& operator+=(const ModInt& other) {
@@ -56,26 +51,15 @@ struct ModInt {
         return *this;
     }
 
-    ModInt& operator/=(const ModInt& other) {
-        return *this *= other.inverse();
+    ModInt& operator/=(const ModInt& other) { 
+        return *this *= other.inverse(); 
     }
 
     // binary operators (friends)
-    friend ModInt operator+(ModInt a, const ModInt& b) {
-        return a += b;
-    }
-    
-    friend ModInt operator-(ModInt a, const ModInt& b) {
-        return a -= b; 
-    }
-
-    friend ModInt operator*(ModInt a, const ModInt& b) { 
-        return a *= b; 
-    }
-
-    friend ModInt operator/(ModInt a, const ModInt& b) { 
-        return a /= b;
-    }
+    friend ModInt operator+(ModInt a, const ModInt& b) { return a += b; }
+    friend ModInt operator-(ModInt a, const ModInt& b) { return a -= b; }
+    friend ModInt operator*(ModInt a, const ModInt& b) { return a *= b; }
+    friend ModInt operator/(ModInt a, const ModInt& b) { return a /= b; }
 
     // allow operations with long long on the right
     friend ModInt operator+(ModInt a, long long b) { return a += ModInt(b); }
@@ -90,38 +74,16 @@ struct ModInt {
     friend ModInt operator/(long long a, ModInt b) { return ModInt(a) /= b; }
 
     // comparison operators
-    friend bool operator==(const ModInt& a, const ModInt& b) {
-        return a.val == b.val;
-    }
-
-    friend bool operator!=(const ModInt& a, const ModInt& b) {
-        return a.val != b.val;
-    }
-
-    friend bool operator<(const ModInt& a, const ModInt& b) {
-        return a.val < b.val;
-    }
-
-    friend bool operator>(const ModInt& a, const ModInt& b) {
-        return a.val > b.val;
-    }
-
-    friend bool operator<=(const ModInt& a, const ModInt& b) {
-        return a.val <= b.val;
-    }
-
-    friend bool operator>=(const ModInt& a, const ModInt& b) {
-        return a.val >= b.val;
-    }
+    friend bool operator==(const ModInt& a, const ModInt& b) { return a.val == b.val; }
+    friend bool operator!=(const ModInt& a, const ModInt& b) { return a.val != b.val; }
+    friend bool operator<(const ModInt& a, const ModInt& b) { return a.val < b.val; }
+    friend bool operator>(const ModInt& a, const ModInt& b) { return a.val > b.val; }
+    friend bool operator<=(const ModInt& a, const ModInt& b) { return a.val <= b.val; }
+    friend bool operator>=(const ModInt& a, const ModInt& b) { return a.val >= b.val; }
 
     // increment / decrement operators
-    ModInt& operator++() {
-        return *this += 1;
-    }
-
-    ModInt& operator--() {
-        return *this -= 1;
-    }
+    ModInt& operator++() { return *this += 1; }
+    ModInt& operator--() { return *this -= 1; }
 
     ModInt operator++(int) {
         ModInt tmp = *this;
@@ -159,9 +121,7 @@ struct ModInt {
     }
 
     // I/O
-    friend ostream& operator<<(ostream& os, const ModInt& x) {
-        return os << x.val;
-    }
+    friend ostream& operator<<(ostream& os, const ModInt& x) { return os << x.val; }
     friend istream& operator>>(istream& is, ModInt& x) {
         long long v;
         is >> v;
@@ -170,10 +130,15 @@ struct ModInt {
     }
 
     // cast
-    operator long long() const {
-        return val;
-    }
+    operator long long() const { return val; }
+
 };
+
+// to work with debug.h
+template <long long M>
+string to_string(const ModInt<M>& x) {
+    return std::to_string(x.val);
+}
 
 using mint = ModInt<MOD>;
 
