@@ -458,6 +458,37 @@ set<pair<int, int>> find_bridges(vector<vector<int>>& adj) {
 }
 
 /**
+ * coordinate compression
+ * 
+ * code by Errichto
+ * 
+ * complexity: O(n log(n)) due to sorting
+ * 
+ * example:
+ *     vector<int> v = {6, 5, 1};
+ *     v = coordinateCompression(v);
+ *     // v = {2, 1, 0}
+ * 
+ */
+
+template <typename T>
+vector<T> coordinateCompression(vector<T>& v) {
+    int n = v.size();
+    vector<pair<T, int>> pairs(n);
+    for(int i = 0; i < n; ++i) {
+        pairs[i] = {v[i], i};
+    }
+    sort(pairs.begin(), pairs.end());
+    int nxt = 0;
+    for (int i = 0; i < n; ++i) {
+        if (i > 0 && pairs[i - 1].first != pairs[i].first) 
+            nxt++;
+        v[pairs[i].second] = nxt;
+    }
+    return v;
+}
+
+/**
  * custom hash function to avoid to get hacked
  * 
  * based on http://xorshift.di.unimi.it/splitmix64.c
@@ -503,7 +534,7 @@ vector<int> binary_representation(long long x) {
 /**
  * compute the number of inversion and sort the vector
  * 
- *  on a vector v of size n: auto inversion = inversion_count(v, 0, n - 1)
+ * on a vector v of size n: auto inversion = inversion_count(v, 0, n - 1)
  */
 
 long long merge(vector<int>& v, int l1, int r1, int l2, int r2) {
@@ -624,6 +655,6 @@ pair<int, int> compute_slope(pair<int, int> p1, pair<int, int> p2) {
  *  
  */
 
-int main() {
+ int main() {
     return 0;
 }
