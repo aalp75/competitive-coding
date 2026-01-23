@@ -472,7 +472,7 @@ set<pair<int, int>> find_bridges(vector<vector<int>>& adj) {
  */
 
 template <typename T>
-vector<T> coordinateCompression(vector<T>& v) {
+vector<T> coordinate_compression(vector<T>& v) {
     int n = v.size();
     vector<pair<T, int>> pairs(n);
     for(int i = 0; i < n; ++i) {
