@@ -6,3 +6,8 @@ codeforces/[!.]*
 # Ignore all files in /library/ without a dot
 library/[!.]*
 !library/*.*
+A.cpp
+B.cpp
+C.cpp
+D.cpp
+E.cpp
