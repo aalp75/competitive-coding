@@ -111,6 +111,37 @@ long double angle(Point v, Point w) {
     return acos(min(max(cosTheta, -1.0l), 1.0l));
 }
 
+/**
+ * Polar sort
+ * 
+ * sort points by their argument from 0 to 2 PI
+ * 
+ * Usage:
+ *  vector<Point> v;
+ *  sort(v.begin(), v.end(), ref, polarSort)
+ *  lower_bound(v.begin(), v.end(), ref, polarSort)
+ *  upper_bound(v.begin(), v.end(), ref, polarSort)
+ * 
+ * half: helper function to check if we are in the upper half or lower half
+ * 
+ * in order to sort from theta to theta + 2 PI update the half function
+ * in order to sort around a given point update the polarSort function
+ * 
+ */
+
+bool half(Point p) {
+    assert (p.x != 0 || p.y != 0) // undefined behavior for (0, 0)
+    return p.y > 0 || (p.y == 0 && p.x > 0);
+}
+
+// check if p1 and p2 are in the same half and 
+// if p2 is on the right of p2 (i.e cross(p1, p2) > 0)
+bool polarSort(const Point& p1, const Point& p2) {
+    if (half(p1) && !half(p2)) return true;
+    if (half(p2) && !half(p1)) return false;
+    return cross(p1, p2) > 0;
+}
+
 string to_string(Point p) { // used with debug.h
     return "(" + to_string(p.x) + ", " + to_string(p.y) + ")";
 }
