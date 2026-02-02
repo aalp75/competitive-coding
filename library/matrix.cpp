@@ -7,6 +7,9 @@ constexpr long long MOD = 998'244'353;
 /**
  * Matrix library
  * 
+ * notes:
+ *  - order of the loops on matrix multiplication is chosen to be cache friendly,
+ *    i.e. loop on the rows of A and B
  */
 
 // return C = A x B: (n * m) = (n * k) * (k * m)
@@ -20,8 +23,8 @@ vector<vector<long long>> matMultiply(vector<vector<long long>> A, vector<vector
     vector<vector<long long>> C(n, vector<long long> (m, 0));
 
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            for (int l = 0; l < k; l++) {
+        for (int l = 0; l < k; l++) {
+            for (int j = 0; j < m; j++) {
                 C[i][j] = (C[i][j] + A[i][l] * B[l][j]) % MOD;
             }
         }

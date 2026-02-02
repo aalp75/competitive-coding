@@ -680,7 +680,7 @@ pair<int, int> compute_slope(pair<int, int> p1, pair<int, int> p2) {
  * 
  * notes:
  *  - the memory can be reduced by replacing the dp 2d array by just 2 1d arrays prev and cur
- *  - in the below example, pref array is 1-indexed
+ *  - in the below implementation, pref array is 1-indexed
  */
 
 long long costDC(vector<long long>& pref, int start, int end) {
@@ -695,21 +695,21 @@ void computeDC(int l, int r, int optL, int optR, int g,
 
     int mid = (l + r) / 2;
 
-    int bestPrev = -1;
+    int bestIndex = -1;
     long long bestVal = INF64;
 
-    for (int prev = optL; prev <= min(optR, mid - 1); prev++) {
-        long long val = dp[g - 1][prev] + costDC(pref, prev + 1, mid);
+    for (int index = optL; index <= min(optR, mid - 1); index++) {
+        long long val = dp[g - 1][index] + costDC(pref, index + 1, mid);
         if (val < bestVal) {
             bestVal = val;
-            bestPrev = prev;
+            bestIndex = index;
         }
     }
 
     dp[g][mid] = bestVal;
 
-    computeDC(l, mid - 1, optL, bestPrev, g, dp, pref);
-    computeDC(mid + 1, r, bestPrev, optR, g, dp, pref);
+    computeDC(l, mid - 1, optL, bestIndex, g, dp, pref);
+    computeDC(mid + 1, r, bestIndex, optR, g, dp, pref);
 }
 
 long long dynamicProgrammingDC(vector<int> v, int k) {
