@@ -13,7 +13,9 @@ constexpr long long MOD = 998'244'353;
  */
 
 // return C = A x B: (n * m) = (n * k) * (k * m)
-vector<vector<long long>> matMultiply(vector<vector<long long>> A, vector<vector<long long>> B) {
+vector<vector<long long>> matMultiply(const vector<vector<long long>>& A, 
+                                      const vector<vector<long long>>& B) {
+    
     assert(A[0].size() == B.size());
 
     int n = A.size();
@@ -32,14 +34,31 @@ vector<vector<long long>> matMultiply(vector<vector<long long>> A, vector<vector
     return C;
 }
 
-// fast exponentiation for matrix
-vector<vector<long long>> matPower(vector<vector<long long>> A, long long power) {
-    if (power == 1) return A;
-    if (power % 2 == 1) {
-        return matMultiply(A, matPower(A, power - 1));
+vector<vector<long long>> matIdentity(int n) {
+    vector<vector<long long>> Id(n, vector<long long> (n, 0));
+    for (int i = 0; i < n; i++) {
+        Id[i][i] = 1;
     }
-    vector<vector<long long>> A2 = matPower(A, power / 2);
-    return matMultiply(A2, A2);
+    return Id;
+}
+
+// fast exponentiation for matrix (base must be square)
+vector<vector<long long>> matPower(vector<vector<long long>> base, long long power) {
+
+    int n = base.size();
+    int m = base[0].size();
+
+    assert(n == m);
+    assert(power >= 0);
+
+    vector<vector<long long>> res = matIdentity(n);
+
+    while (power > 0) {
+        if (power & 1) res = matMultiply(res, base);
+        base = matMultiply(base, base);
+        power /= 2;
+    }
+    return res;
 }
 
 
