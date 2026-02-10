@@ -1,0 +1,8 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+
+    "editor.fontFamily": "Cascadia Mono",
+    "editor.fontLigatures": false,
+    "editor.fontSize": 17,
+    "editor.lineHeight": 22
+}

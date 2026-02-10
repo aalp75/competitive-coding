@@ -69,7 +69,7 @@ pair<long long, long long> extgcd(long long a, long long b) {
 int main() {
 
     int g = mygcd(12, 15);
-    cout << g << '\n';
+    cout << g << '\n'; // 3
     
     return 0;
 }

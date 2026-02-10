@@ -1,13 +1,10 @@
 *.prob
-*.json
 # Ignore all files in /codeforces/ without a dot
 codeforces/[!.]*
 !codeforces/*.* 
 # Ignore all files in /library/ without a dot
 library/[!.]*
 !library/*.*
-A.cpp
-B.cpp
-C.cpp
-D.cpp
-E.cpp
+# Ignore all files in /template/ without a dot
+template/[!.]*
+!template/*.*
