@@ -4,5 +4,8 @@
     "editor.fontFamily": "Cascadia Mono",
     "editor.fontLigatures": false,
     "editor.fontSize": 17,
-    "editor.lineHeight": 22
+    "editor.lineHeight": 22,
+
+    "workbench.tree.indent": 30,
+    "workbench.tree.renderIndentGuides": "always"
 }
