@@ -19,59 +19,6 @@ long long ceil_division(long long x, long long y) {
 }
 
 /**
- * modular operation
- */
-
-long long mod(const long long x, const long long m) { // x % m
-    return (x % m + m) % m;
-}
-
-long long add(const long long x, const long long y) { // x + y
-    return (x + y + MOD) % MOD; 
-}
-
-long long substract(const long long x, const long long y) { // x - y
-    return(x - y + MOD) % MOD;
-}
-
-long long mul(const long long x, const long long y) { // x * y
-    return ((x % MOD) * (y % MOD)) % MOD;
-}
-
-long long inverse(const long long x) { // x ^ -1 based on Euclidean division
-    return x <= 1 ? x : MOD - (MOD / x) * inverse(MOD % x) % MOD;
-}
-
-long long division(const long long x, const long long y) { // x / y
-    return mul(x, inverse(y));
-}
-
-long long fast_exponentiation(long long base, long long exp) { // base ^ exp
-    base %= MOD;
-    long long res  = 1;
-    while (exp > 0) {
-        if (exp & 1) 
-            res = res * base % MOD;
-        base = base * base % MOD;
-        exp /= 2;
-    }
-    return res;
-}
-
-/**
- * modular arithmetic
- */
-
- long long gcd(const long long& x, const long long& y) {
-    if (y == 0) return x;
-    return gcd(y, x % y);
-}
-
-long long lcm(const long long& x, const long long& y) {
-    return x / gcd(x, y) * y;
-}
-
-/**
  * precompute all factorial and inverse factorial to compute 
  * binomial coefficient modulo a prime number in O(1)
  */
@@ -92,48 +39,6 @@ void precompute_fact() {
 
 int binomial_coeff(int k, int n) {
     return fact[n] * (fact_inv[n - k] * fact_inv[k] % MOD) % MOD;
-}
-
-/**
- * sieve related algorithms
- */
-
-vector<int> primes;
-
-void prime_sieve() {
-    vector<bool> is_prime(N, true);
-    for (int i = 2; i < N; i++) {
-        if (!is_prime[i]) continue;
-        primes.push_back(i);
-        for (int j = 2 * i; j < N; j += i) {
-            is_prime[j] = false;
-        }
-    }
-}
-
-vector<int> prime_factors(N, 1);
-
-void prime_factor_sieve() {
-    vector<bool> is_prime(N, true);
-    for (int i = 2; i < N; i++) {
-        if (!is_prime[i]) continue;
-        primes.push_back(i);
-        prime_factors[i] = i;
-        for (int j = 2 * i; j < N; j += i) {
-            is_prime[j] = false;
-            if (prime_factors[j] == 1) prime_factors[j] = i;
-        }
-    }
-}
-
-vector<vector<int>> divisors(N);
-
-void divisor_sieve() {
-    for (int i = 1; i < N; i++) {
-        for (int j = i; j < N; j += i) {
-            divisors[j].push_back(i);
-        }
-    }
 }
 
 /**
@@ -202,7 +107,6 @@ vector<int> bfs(vector<vector<int>>& adj, int n, int node) {
     }
     return dist;
 }
-
 
 /**
  * disjoint set union (dsu)
@@ -273,36 +177,6 @@ void dijkstra(vector<vector<pair<int, int>>>& adj, int initial_node, int n) {
                 pq.push({-distance[next], next});
             }
         }
-    }
-}
-
-/**
- * segment tree
- * 
- * defined as 0-indexed array
- */
-
-vector<int> tree(N);
-//int n;
-
-int compute(int left, int right) {
-    left += n; right += n;
-    int res = 0;
-    while (left <= right) {
-        if (left % 2 == 1) 
-                res += tree[left++];
-        if (right % 2 == 0) 
-                res += tree[right--];
-        left /= 2; right /= 2;
-    }
-    return res;
-}
-
-void update(int index, int val) {
-    index += n;
-    tree[index] += val;
-    for (index /= 2; index >= 1; index /= 2) {
-        tree[index] = tree[2 * index] + tree[2 * index + 1];
     }
 }
 

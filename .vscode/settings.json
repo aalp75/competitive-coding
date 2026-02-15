@@ -7,5 +7,7 @@
     "editor.lineHeight": 22,
 
     "workbench.tree.indent": 30,
-    "workbench.tree.renderIndentGuides": "always"
+    "workbench.tree.renderIndentGuides": "always",
+
+    "scm.diffDecorations": "none",
 }
