@@ -34,6 +34,11 @@ vector<vector<long long>> matMultiply(const vector<vector<long long>>& A,
     return C;
 }
 
+/**
+ * In case we are in the min-plus ring (also known as distance product)
+ * 
+ * the idendity matrix is: diagonal 0, others INF
+ */
 vector<vector<long long>> matIdentity(int n) {
     vector<vector<long long>> Id(n, vector<long long> (n, 0));
     for (int i = 0; i < n; i++) {
