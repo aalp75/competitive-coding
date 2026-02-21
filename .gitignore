@@ -8,3 +8,4 @@ library/[!.]*
 # Ignore all files in /template/ without a dot
 template/[!.]*
 !template/*.*
+.venv/
