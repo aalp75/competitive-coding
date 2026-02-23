@@ -20,9 +20,6 @@ void preprocess() {
 
 void solve(int test_case) {
     cerr << "test case #" << test_case << '\n';
-    x = 3;
-    
-
 }
 
 int main() {
@@ -38,4 +35,3 @@ int main() {
     cerr << "Successful\n";
     return 0;
 }
-
