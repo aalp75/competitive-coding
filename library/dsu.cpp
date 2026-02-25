@@ -13,10 +13,11 @@ using namespace std;
 
 struct DSU {
 
+    int n;
     vector<int> parent;
     vector<int> sz;
 
-    DSU(int n) {
+    DSU(int n_) n(n_) {
         parent.resize(n);
         sz.resize(n, 1);
         for (int i = 0; i < n; i++) {
@@ -35,14 +36,15 @@ struct DSU {
     }
 
     // merge smaller component into larger component
-    void unite(int a, int b) {
+    bool unite(int a, int b) {
         a = find(a);
         b = find(b);
-        if (a == b) return;
+        if (a == b) return false;
         if (sz[a] < sz[b]) swap(a, b); // ensure a is the largest component
 
         parent[b] = a;
         sz[a] += sz[b];
+        return true;
     }
 };
 
