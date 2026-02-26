@@ -66,6 +66,31 @@ pair<long long, long long> extgcd(long long a, long long b) {
     return make_pair(x, y);
 }
 
+/**
+ * precompute all factorial and inverse factorial to compute 
+ * binomial coefficient modulo a prime number in O(1)
+ */
+
+const int N = 100;
+
+vector<long long> fact(N + 1);
+vector<long long> fact_inv(N + 1);
+
+void precompute_fact() {
+    fact[0] = fact_inv[0] = 1;
+    for (int i = 1; i <= N; i++) {
+        fact[i] = fact[i - 1] * i % MOD;
+    }
+    fact_inv[N] = inverse(fact[N]);
+    for (int i = N - 1; i >= 1; i--) {
+        fact_inv[i] = fact_inv[i + 1] * (i + 1) % MOD;
+    }
+}
+
+int binomial_coeff(int k, int n) {
+    return fact[n] * (fact_inv[n - k] * fact_inv[k] % MOD) % MOD;
+}
+
 int main() {
 
     int g = mygcd(12, 15);

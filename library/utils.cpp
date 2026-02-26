@@ -8,10 +8,6 @@ const long long INF32 = 1e9;
 const long long INF64 = 1e18;
 int n;
 
-/**
- * common operation
- */
-
 // return the ceil number of x / y e.g. ceil_division(5, 2) = 3
 long long ceil_division(long long x, long long y) {
     long long res = x / y + (x % y != 0);
@@ -19,26 +15,20 @@ long long ceil_division(long long x, long long y) {
 }
 
 /**
- * precompute all factorial and inverse factorial to compute 
- * binomial coefficient modulo a prime number in O(1)
+ * longest strictly increasing subsequence
+ * 
+ * replace with upper_bound for increasing or equal
  */
 
-vector<long long> fact(N + 1);
-vector<long long> fact_inv(N + 1);
-
-void precompute_fact() {
-    fact[0] = fact_inv[0] = 1;
-    for (int i = 1; i <= N; i++) {
-        fact[i] = fact[i - 1] * i % MOD;
+template<typename T>
+int LIS(vector<T>& v) {
+    vector<T> lis;
+    for (auto e : v) {
+        auto ite = lower_bound(lis.begin(), lis.end(), e);
+        if (ite == lis.end()) lis.push_back(e);
+        else *ite = e;
     }
-    fact_inv[N] = inverse(fact[N]);
-    for (int i = N - 1; i >= 1; i--) {
-        fact_inv[i] = fact_inv[i + 1] * (i + 1) % MOD;
-    }
-}
-
-int binomial_coeff(int k, int n) {
-    return fact[n] * (fact_inv[n - k] * fact_inv[k] % MOD) % MOD;
+    return lis.size();
 }
 
 /**
