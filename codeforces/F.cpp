@@ -35,4 +35,3 @@ int main() {
     cerr << "Successful\n";
     return 0;
 }
-

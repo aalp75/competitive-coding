@@ -2,6 +2,13 @@
 
 using namespace std;
 
+#ifndef ONLINE_JUDGE
+#include "../debug.h"
+#else
+#define debug(...)
+#endif
+
+
 /**
  * cartesian tree
  * 
@@ -13,7 +20,8 @@ using namespace std;
  * all elements of the array needs to be distinct
  * 
  * to build a min-heap cartesian tree:
- *  change the compare condition to be: arr[top] < arr[i]
+ *     change the compare condition to be: arr[top] < arr[i]
+ *     start from the minimum of the array
  * 
  * once the cartesian tree is built we can explore it 
  * with a simple DFS
@@ -21,7 +29,7 @@ using namespace std;
  */
 
 void dfs(int node, vector<int>& lc, vector<int>& rc) {
-    cout << "Node: " << node << '\n';
+    debug(node);
     if (lc[node] >= 0) dfs(lc[node], lc, rc);
     if (rc[node] >= 0) dfs(rc[node], lc, rc);
 }

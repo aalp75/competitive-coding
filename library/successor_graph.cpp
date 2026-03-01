@@ -51,6 +51,35 @@ void querySuccessor(vector<int>& succ, int n) {
     cout << cur << '\n';
 }
 
+/**
+ * Cycle detection using Floyd’s algorithm
+ * 
+ * (also named Tortoise and Hare algorithm)
+ * 
+ * One possible approach to find all cycles:
+ *     - run a dsu to find all components
+ *     - run this algorithm on each components
+ * 
+ */
+
+void findCycle(vector<int>& succ, int start) {
+
+    int a = succ[start];
+    int b = succ[succ[start]];
+    while (a != b) {
+        a = succ[a];    
+        b = succ[succ[b]];
+    }
+
+    // find the length
+    b = succ[a];
+    length = 1;
+    while (a != b) {
+        b = succ[b];
+        length++;
+    }
+}
+
 
 int main() {
     vector<int> succ = {1, 5, 1, 0, 3, 2};

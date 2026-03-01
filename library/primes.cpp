@@ -24,6 +24,7 @@ void prime_sieve() {
     }
 }
 
+// vector<int> primes;
 vector<int> spf(N, 1); // smallest prime factor
 
 void prime_factor_sieve() {
@@ -34,7 +35,7 @@ void prime_factor_sieve() {
         spf[i] = i;
         for (int j = 2 * i; j < N; j += i) {
             is_prime[j] = false;
-            if (spf[j] == 1) prime_fspfactors[j] = i;
+            if (spf[j] == 1) spf[j] = i;
         }
     }
 }

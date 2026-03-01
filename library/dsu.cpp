@@ -17,7 +17,7 @@ struct DSU {
     vector<int> parent;
     vector<int> sz;
 
-    DSU(int n_) n(n_) {
+    DSU(int n_) : n(n_) {
         parent.resize(n);
         sz.resize(n, 1);
         for (int i = 0; i < n; i++) {
@@ -36,7 +36,7 @@ struct DSU {
     }
 
     // merge smaller component into larger component
-    bool unite(int a, int b) {
+    bool merge(int a, int b) {
         a = find(a);
         b = find(b);
         if (a == b) return false;
@@ -50,7 +50,7 @@ struct DSU {
 
 int main() {
     DSU dsu(3);
-    dsu.unite(0, 1);
+    dsu.merge(0, 1);
     
     cout << dsu.same(0, 1) << '\n'; // true
     cout << dsu.same(1, 2) << '\n'; // false
