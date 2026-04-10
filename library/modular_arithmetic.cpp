@@ -24,6 +24,13 @@ long long mul(const long long x, const long long y) { // x * y
     return ((x % MOD) * (y % MOD)) % MOD;
 }
 
+/**
+ * The inverse function only work when MOD is a prime number
+ * 
+ * For non prime modulo, use the inverse2 below function
+ * based on the extended euclidean algorithm
+ */
+
 long long inverse(const long long x) { // x ^ -1 based on Euclidean division
     return x <= 1 ? x : MOD - (MOD / x) * inverse(MOD % x) % MOD;
 }
@@ -64,6 +71,13 @@ pair<long long, long long> extgcd(long long a, long long b) {
     x = xy.second;
     y = xy.first - a / b * x;
     return make_pair(x, y);
+}
+
+long long inverse2(long long a, long long mod) {
+    auto [x, y] = extgcd(a, mod);
+    x %= mod;
+    if (x < 0) x += mod;
+    return x;
 }
 
 /**
