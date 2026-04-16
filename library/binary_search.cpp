@@ -6,7 +6,7 @@ using namespace std;
  * Custom implementation of std::lower_bound and std::upper_bound
  * 
  * lower_bound(x): returns the index of first element >= x
- * upper_bound(x): returns the index of first element > x
+ * upper_bound(x): returns the index of first element >  x
  * 
  * Note: Use left + (right - left) / 2 instead of (l + r) / 2 
  *       to avoid overflow when working with very large indices

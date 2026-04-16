@@ -101,7 +101,7 @@ void precompute_fact() {
     }
 }
 
-int binomial_coeff(int k, int n) {
+long long binomial_coeff(int k, int n) {
     return fact[n] * (fact_inv[n - k] * fact_inv[k] % MOD) % MOD;
 }
 

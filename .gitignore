@@ -10,3 +10,5 @@ template/[!.]*
 !template/*.*
 .venv/
 *.exe
+contests/
+notebook.ipynb
