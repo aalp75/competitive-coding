@@ -105,7 +105,7 @@ string manacher(string s) {
  * Polynomial hashing
  * 
  * We use two independent hashes to reduce
- * the probability of collisions.
+ * the probability of collisions
  */
 
 namespace PolynomialHashing {

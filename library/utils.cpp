@@ -398,7 +398,7 @@ vector<int> binary_representation(long long x) {
 /**
  * compute the number of inversion and sort the vector
  * 
- * on a vector v of size n: auto inversion = inversion_count(v, 0, n - 1)
+ * on a vector v of size n: long long inversion = inversion_count(v, 0, n - 1)
  */
 
 long long merge(vector<int>& v, int l1, int r1, int l2, int r2) {

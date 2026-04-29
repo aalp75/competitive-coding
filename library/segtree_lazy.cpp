@@ -10,6 +10,13 @@ using namespace std;
  * 
  * tl = tree left, tr = tree right, tm = tree mid
  * 
+ * marked[node] = true means that this node has a pending lazy value that
+ *                     hasn't been pushed to children
+ * 
+ * notes:
+ *  - tl, tr: what this node covers
+ *  - l, r: what you want to update
+ * 
  * operations:
  * - compute f([l, r]): compute(1, 0, n - 1, l, r)
  * - update v[i] += x for i in [l, r]: update(1, 0, n - 1, l, r, x)
@@ -17,10 +24,10 @@ using namespace std;
 
 template <typename T>
 struct SegTreeLazy {
+    int n;
     vector<T> tree;
     vector<T> lazy;
     vector<bool> marked;
-    int n;
 
     SegTreeLazy() : n(0) {}
 
@@ -71,7 +78,7 @@ struct SegTreeLazy {
     void update(int node, int tl, int tr, int l, int r, T val) {
         if (l > r) 
             return;
-        if (l == tl && tr == r) {
+        if (l == tl && tr == r) { // it covers the whole segment
             tree[node] += val * (tr - tl + 1); // scaled by numbers of elements
             lazy[node] += val;
             marked[node] = true;
