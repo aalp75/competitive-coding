@@ -10,5 +10,6 @@ template/[!.]*
 !template/*.*
 .venv/
 *.exe
+*.bin
 contests/
 notebook.ipynb

@@ -44,7 +44,7 @@ long long compute_hash(vector<int>& s, const long long& base) {
     long long hash_value = 0;
     long long base_power = 1;
     for (int value : s) {
-        hash_value = (hash_value + value* base_power) % MOD;
+        hash_value = (hash_value + value * base_power) % MOD;
         base_power = base_power * base % MOD;
     }
     return hash_value;
