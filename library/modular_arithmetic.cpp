@@ -105,6 +105,29 @@ long long binomial_coeff(int n, int k) {
     return fact[n] * (fact_inv[n - k] * fact_inv[k] % MOD) % MOD;
 }
 
+// When working without modulo, binomial coefficients can grow large
+// Using long long is safe up to around n ~ 60 (beyond that it may overflow)
+// In such cases, it is better to precompute all values using Pascal's triangle
+
+// C[n][k] = number of ways to choose k elements from n elements
+
+vector<vector<long long>> C;
+
+void precompute_binomial_coeff(int n) {
+    C.assign(n + 1, vector<long long>(n + 1, 0));
+
+    for (int i = 0; i <= n; i++) {
+        C[i][0] = 1;
+        C[i][i] = 1;
+    }
+
+    for (int i = 2; i <= n; i++) {
+        for (int j = 1; j < i; j++) {
+            C[i][j] = C[i - 1][j - 1] + C[i - 1][j];
+        }
+    }
+}
+
 int main() {
 
     int g = mygcd(12, 15);
