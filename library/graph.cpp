@@ -5,6 +5,50 @@
 using namespace std;
 
 /**
+ * Bellman-Ford algorithm
+ * 
+ * Computes the shortest-path distances from a source node u
+ * to all other nodes in a weighted directed or undirected graph.
+ *
+ * It supports negative weights, If there is a negative cycle it can detect it
+ * 
+ * Graph representation:
+ *   edges[i] = {from, to, weight}
+ * 
+ * dist[v] = shortest distance from u to v
+ * 
+ * Time complexity is O(nm), where n is the number of nodes and m the number of edges
+ * 
+ * Implementation below uses nodes numbered from 1 to n
+ */
+
+
+vector<long long> bellmanFord(int u, vector<vector<int>>& edges, int n) {
+    vector<long long> distance(n + 1, INF32);
+    distance[u] = 0;
+
+    for (int i = 1; i <= n - 1; i++) {
+        for (auto edge : edges) {
+            int a = edge[0];
+            int b = edge[1];
+            int w = edge[2];
+            distance[b] = min(distance[b], distance[a] + w);
+        }
+    }
+
+    bool negativeCycle = false;
+
+    for (auto edge : edges) {
+        int a = edge[0];
+        int b = edge[1];
+        int w = edge[2];
+        if (distance[a] + w < distance[b]) negativeCycle = true;
+    }
+
+    return distance;
+}
+
+/**
  * Floyd–Warshall algorithm
  * 
  * Computes the shortest paths for all pairs (i, j) in a directed or undirected graph
@@ -21,7 +65,7 @@ using namespace std;
  * Implementation below uses nodes numbered from 1 to n
  */
 
-vector<vector<int>> floyd_warshall(const vector<vector<int>>& adj, int n) {
+vector<vector<int>> floydWarshall(const vector<vector<int>>& adj, int n) {
 
     const int INF = 1e9;
 
@@ -47,6 +91,23 @@ vector<vector<int>> floyd_warshall(const vector<vector<int>>& adj, int n) {
     // dist[i][j] = shortest distance from i to j
     return dist;
 }
+
+/**
+ * Floyd–Warshall algorithm
+ * 
+ * Computes the shortest paths for all pairs (i, j) in a directed or undirected graph
+ * It works with negative edge weights as long as there is no negative cycle
+ * 
+ * The graph is represented as an n × n matrix where adj[i][j] is the weight
+ * of the edge from i to j, or INF if there is no edge
+ * 
+ * dist[i][j][k] = shortest path from i to j using only {1, ..., k} as intermediate nodes
+ * dist[i][j][k] = min(dist[i][j][k - 1], dist[i][k][k - 1] + dist[k][j][k - 1])
+ * 
+ * Time complexity is O(n^3), where n is the number of nodes
+ * 
+ * Implementation below uses nodes numbered from 1 to n
+ */
 
 /**
  * Finding the cycle in a Namori graph (a connected graph with N vertices and N edges).
