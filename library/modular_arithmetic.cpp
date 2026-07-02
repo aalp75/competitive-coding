@@ -128,10 +128,28 @@ void precompute_binomial_coeff(int n) {
     }
 }
 
+// 128 bits integer MAX INT = 2^127 (~1.7 × 10^38)
+using i128 = __int128;
+
+std::ostream& operator<<(std::ostream& os, i128 x) {
+    if (x == 0) return os << '0';
+    if (x < 0) os << '-', x = -x;
+    std::string s;
+    while (x) {
+        s += char('0' + x % 10);
+        x /= 10;
+    }
+    std::reverse(s.begin(), s.end());
+    return os << s;
+}
+
 int main() {
 
     int g = mygcd(12, 15);
     cout << g << '\n'; // 3
+
+    i128 x = 1e36;
+    cout << x << '\n';
     
     return 0;
 }
