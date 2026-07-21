@@ -93,23 +93,6 @@ vector<vector<int>> floydWarshall(const vector<vector<int>>& adj, int n) {
 }
 
 /**
- * Floyd–Warshall algorithm
- * 
- * Computes the shortest paths for all pairs (i, j) in a directed or undirected graph
- * It works with negative edge weights as long as there is no negative cycle
- * 
- * The graph is represented as an n × n matrix where adj[i][j] is the weight
- * of the edge from i to j, or INF if there is no edge
- * 
- * dist[i][j][k] = shortest path from i to j using only {1, ..., k} as intermediate nodes
- * dist[i][j][k] = min(dist[i][j][k - 1], dist[i][k][k - 1] + dist[k][j][k - 1])
- * 
- * Time complexity is O(n^3), where n is the number of nodes
- * 
- * Implementation below uses nodes numbered from 1 to n
- */
-
-/**
  * Finding the cycle in a Namori graph (a connected graph with N vertices and N edges).
  *
  * Such a graph contains exactly one simple cycle, because it has one more edge
