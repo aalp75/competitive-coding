@@ -1,0 +1,81 @@
+% =============================================================
+% myboxes.tex - Configuration file for tcolorbox frames
+% =============================================================
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{amssymb} % Provides \blacksquare
+
+% Font settings
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=mainblue,
+    urlcolor=mainblue
+}
+
+\usepackage{parskip}
+
+% blacks square for end of proof
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+% Main color definition
+\definecolor{mainblue}{RGB}{30, 80, 160}
+
+% Command for the document title
+\newcommand{\mytitle}[1]{%
+  \begin{center}
+    {\Huge \bfseries \color{black} #1}
+  \end{center}%
+  \vspace{1em}%
+}
+
+% Style of the box
+\tcbset{
+  mybasebox/.style={
+    enhanced,
+    sharp corners,
+    boxrule=1pt,
+    fonttitle=\bfseries,
+    attach boxed title to top left={yshift=-\tcboxedtitleheight/2, xshift=1.5em},
+    boxed title style={
+      size=small,
+      colback=white,
+      colframe=white,
+      sharp corners
+    }
+  }
+}
+
+% Box generator
+% #1 (optional) = extra tcolorbox options (e.g. colupper)
+% #2 = environment name
+% #3 = frame/title color
+% #4 = background color
+\newcommand{\createbox}[4][]{%
+  \newtcolorbox{#2}[1]{
+    mybasebox,
+    colframe=#3,
+    coltitle=#3,
+    colback=#4,
+    #1,
+    title={##1}
+  }%
+}
+
+% Boxes definition
+\definecolor{defgreen}{RGB}{42, 92, 42}
+
+% Standard boxes
+\createbox[colupper=mainblue]{mysummary}{mainblue}{white} % Summary (mainblue and white)
+\createbox{mydefinition}{defgreen}{defgreen!8}          % Definition (green)
+\createbox{myproperty}{violet!85!black}{violet!15}      % Property (purple)
+\createbox{mytheorem}{blue!80!black}{blue!8}            % Theorhem (blue)
+\createbox{myexample}{orange!85!black}{orange!8}        % Example (orange)
+\createbox{myremark}{purple!80!black}{purple!8}         % Remark (red)

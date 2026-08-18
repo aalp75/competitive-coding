@@ -1,0 +1,157 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+% Inclusion de votre template
+\input{template/template.tex}
+
+\begin{document}
+
+\mytitle{Tropical Semiring2}
+
+\begin{mysummary}{Summary}
+  \begin{enumerate}[label=\Roman*., leftmargin=*, nosep]
+    \item Definitions
+    \item Properties 
+    \item Applications
+    \item Problems
+  \end{enumerate}
+\end{mysummary}
+
+\section*{I. Definitions}
+
+The \textbf{tropical semiring} is also called the \textbf{min-plus algebra} (or \textbf{max-plus algebra}).
+
+\begin{mydefinition}{Definition: Semiring}
+A \textbf{semiring} is a set $S$ equipped with two binary operations $+$ and $\cdot$, called addition and multiplication, such that:
+\begin{enumerate}
+    \item $\oplus$ is associative: $(a \oplus b) \oplus c = a \oplus (b \oplus c)$.
+    \item $\oplus$ has an identity element: $a \oplus 0_S = a$.
+    \item $\otimes$ is associative: $(a \otimes b) \otimes c = a \otimes (b \otimes c)$.
+    \item $\otimes$ is distributive over $\oplus$: $a \otimes (b \oplus c) = (a \otimes b) \oplus (a \otimes c)$.
+    \item $\otimes$ has an identity element: $a \otimes 1_S = a$.
+\end{enumerate}
+\end{mydefinition}
+
+\textbf{Remark:} The difference between a ring and a semiring is that the semiring relaxes the condition that each element of $S$ must have an inverse with respect to $\oplus$: for every element $a \in S$, there must exist an element $-a$ such that $a \oplus (-a) = 0_S$.
+
+\begin{mytheorem}{Teorhem: Tropical semiring}
+The tropical semiring is a semiring. We denote the law $\oplus$ as $\min$ and the law $\otimes$ as $+$. The identity element for $\oplus$ is $+\infty$ and the identity element for $\otimes$ is $0$.
+\end{mytheorem}
+
+\begin{proof}
+Let's prove all five required conditions:
+\begin{enumerate}
+    \item Associativity of $\oplus$:
+    \[
+    (a \oplus b) \oplus c = \min(\min(a,b), c) = \min(a,b,c) = \min(a, \min(b,c)) = a \oplus (b \oplus c)
+    \]
+    \item Identity element for $\oplus$:
+    \[
+    \text{Let } a \in S, \quad a \oplus (+\infty) = \min(a, +\infty) = a
+    \]
+    \item Associativity of $\otimes$:
+    \[
+    (a \otimes b) \otimes c = (a + b) + c = a + b + c = a + (b + c) = a \otimes (b \otimes c)
+    \]
+    \item Distributivity of $\otimes$ over $\oplus$:
+    \[
+    a \otimes (b \oplus c) = a + \min(b,c) = \min(a+b, a+c) = (a \otimes b) \oplus (a \otimes c)
+    \]
+    \item Identity element for $\otimes$:
+    \[
+    \text{Let } a \in S, \quad a \otimes 0 = a + 0 = a
+    \]
+\end{enumerate}
+\end{proof}
+
+\section*{II. Properties}
+
+One of the most important properties of the tropical semiring is \textbf{"tropical matrix multiplication"}. Tropical matrix multiplication is ordinary matrix multiplication where we replace the two scalar operations $+$ and $\times$ by $\min$ and $+$.
+
+\begin{itemize}
+    \item \textbf{Ordinary matrix multiplication}: $D = A \cdot B$
+    \[
+    D_{ij} = \bigoplus_k A_{ik} \otimes B_{kj} = \sum_k A_{ik} B_{kj}
+    \]
+    \item \textbf{Tropical matrix multiplication}: $D = A \cdot B$
+    \[
+    D_{ij} = \bigoplus_k A_{ik} \otimes B_{kj} = \min_k (A_{ik} + B_{kj})
+    \]
+\end{itemize}
+
+\begin{myproperty}{Property: Associativity of Matrix Multiplication}
+In both semirings, matrix multiplication is associative.
+\end{myproperty}
+
+\begin{proof}
+Compare $D_1 = (A \cdot B) \cdot C$ and $D_2 = A \cdot (B \cdot C)$:
+\[
+\begin{aligned}
+D_{1,ij} &= \bigoplus_l \left( \bigoplus_k A_{ik} \otimes B_{kl} \right) \otimes C_{lj} = \min_l \left( \min_k (A_{ik} + B_{kl}) + C_{lj} \right) \\
+&= \min_l \min_k (A_{ik} + B_{kl} + C_{lj}) = \min_{k,l} (A_{ik} + B_{kl} + C_{lj})
+\end{aligned}
+\]
+\[
+\begin{aligned}
+D_{2,ij} &= \bigoplus_k A_{ik} \otimes \left( \bigoplus_l B_{kl} \otimes C_{lj} \right) = \min_k \left( A_{ik} + \min_l (B_{kl} + C_{lj}) \right) \\
+&= \min_k \min_l (A_{ik} + B_{kl} + C_{lj}) = \min_{k,l} (A_{ik} + B_{kl} + C_{lj})
+\end{aligned}
+\]
+So $D_{1,ij} = D_{2,ij}$.
+\end{proof}
+
+\begin{mydefinition}{Definition: Identity Matrix}
+On the tropical semiring, the idendity matrix is the matrix with $0$ on the diagonal and $\infty$ elsewhere.
+\end{mydefinition}
+
+\[
+\begin{aligned}
+    D_{i, j} = \min_k (A_{i, k} + I_{k, j}) = A_{i, j} \quad \text{because } I_{k, j} = \infty \text{ except for } k = j
+\end{aligned}
+\]
+
+\section*{III. Applications}
+
+The two main applications are \textbf{fast matrix exponentiation} and \textbf{range matrix multiplication}.
+
+\subsection*{1) Fast Matrix Exponentiation}
+
+Similarly to the ordinary semiring, due to associativity, it's possible to use fast matrix exponentiation on tropical matrix multiplication.
+
+\begin{myexample}{Example: Shortest path with exactly $k$ edges}
+Consider a weighted directed graph and its adjacency matrix $D$:
+\begin{itemize}
+    \item $D[i][j] = \text{weight of the edge } (i,j)$
+\item $D^k[i][j] =$ shortest path from node $i$ to $j$ using exactly $k$ edges \\
+that can be computed using fast matrix exponentiation.
+\end{itemize}
+\end{myexample}
+
+\textbf{Remark: } The problen is closely related to the Floyd-Warshall algorithm that computes the shortest distance between all pairs of nodes. The difference is that Floyd-Warshall can use any number of edges, whereas tropical matrix exponentiation uses exactly $k$ edges. Floyd-Warshall is generally used when the number of vertices is small, and tropical matrix exponentiation when the number of steps is very large and we care about the exact number of steps.
+
+\subsection*{2) Range Matrix Multiplication}
+
+Consider a problem where we have an array of matrices $A = [A_1, \dots, A_n]$ and we would like to be able to perform 2 opearations:
+
+\begin{enumerate}
+    \item Compute quickly the matrices multiplication over the range $[A_l, \dots, A_r]$.
+    \item Update one element of the array $A_i$.
+\end{enumerate}
+
+To solve this problem, it's possible to use a segment tree initialised with the identity matrix and the merge operation defined as the matrix multiplication.
+
+Let's extend the previous graph problem; now suppose that the transitions of the graph depend also from the time. In other words, we have transition matrices $M_1, M_2, \dots, M_T$. Similarly to the ordinary range matrix multiplication, to be able to compute the cost to travel from node $i$ to node $j$ between time $[l, r]$, we can use a segment tree initialised with the identity matrix of the tropical ring (see section II) with the merge operations defined as tropical matrix multiplication and the 
+
+\section*{IV. Problems}
+
+A list of problems that can be solved using the tropical semiring:
+
+\begin{itemize}
+    
+    \item \href{https://codeforces.com/contest/2257/problem/F1}{Codeforces 2257 F1}
+\end{itemize}
+
+\end{document}

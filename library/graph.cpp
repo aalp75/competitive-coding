@@ -8,7 +8,7 @@ using namespace std;
  * Bellman-Ford algorithm
  * 
  * Computes the shortest-path distances from a source node u
- * to all other nodes in a weighted directed or undirected graph.
+ * to all other nodes in a weighted directed or undirected graph
  *
  * It supports negative weights, If there is a negative cycle it can detect it
  * 
