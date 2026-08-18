@@ -10,4 +10,6 @@
     "workbench.tree.renderIndentGuides": "always",
 
     "scm.diffDecorations": "none",
+
+    "latex-workshop.latex.outDir": "%DIR%/..",
 }
