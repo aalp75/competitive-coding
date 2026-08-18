@@ -13,3 +13,11 @@ template/[!.]*
 *.bin
 contests/
 notebook.ipynb
+# Ignore all tex auxiliary files
+*.log
+*.aux
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
