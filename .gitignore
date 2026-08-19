@@ -1,4 +1,5 @@
 *.prob
+.DS_Store
 # Ignore all files in /codeforces/ without a dot
 codeforces/[!.]*
 !codeforces/*.* 
