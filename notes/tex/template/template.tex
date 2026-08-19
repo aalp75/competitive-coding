@@ -1,13 +1,9 @@
-% =============================================================
-% myboxes.tex - Configuration file for tcolorbox frames
-% =============================================================
-
 \usepackage{tcolorbox}
-\tcbuselibrary{skins}
+\tcbuselibrary{skins, listings}
 \usepackage{xcolor}
 \usepackage{amsthm}
 \usepackage{enumitem}
-\usepackage{amssymb} % Provides \blacksquare
+\usepackage{amssymb}
 
 % Font settings
 \usepackage[T1]{fontenc}
@@ -30,52 +26,75 @@
 
 % Command for the document title
 \newcommand{\mytitle}[1]{%
-  \begin{center}
-    {\Huge \bfseries \color{black} #1}
-  \end{center}%
-  \vspace{1em}%
+    \begin{center}
+        {\Huge \bfseries \color{black} #1}
+    \end{center}%
+    \vspace{1em}%
 }
 
 % Style of the box
 \tcbset{
-  mybasebox/.style={
-    enhanced,
-    sharp corners,
-    boxrule=1pt,
-    fonttitle=\bfseries,
-    attach boxed title to top left={yshift=-\tcboxedtitleheight/2, xshift=1.5em},
-    boxed title style={
-      size=small,
-      colback=white,
-      colframe=white,
-      sharp corners
+    mybasebox/.style={
+        enhanced,
+        sharp corners,
+        boxrule=1pt,
+        fonttitle=\bfseries,
+        attach boxed title to top left={yshift=-\tcboxedtitleheight/2, xshift=1.5em},
+        boxed title style={
+            size=small,
+            colback=white,
+            colframe=white,
+            sharp corners
+        }
     }
-  }
 }
 
-% Box generator
-% #1 (optional) = extra tcolorbox options (e.g. colupper)
-% #2 = environment name
-% #3 = frame/title color
-% #4 = background color
-\newcommand{\createbox}[4][]{%
-  \newtcolorbox{#2}[1]{
-    mybasebox,
-    colframe=#3,
-    coltitle=#3,
-    colback=#4,
-    #1,
-    title={##1}
-  }%
+\newcommand{\createbox}[5][]{%
+    \newtcolorbox{#2}[1]{
+        mybasebox,
+        colframe=#3,
+        coltitle=#3,
+        colback=#4,
+        #1,
+        title={#5##1}
+    }
 }
 
 % Boxes definition
 \definecolor{defgreen}{RGB}{42, 92, 42}
 
 % Standard boxes
-\createbox[colupper=mainblue]{mysummary}{mainblue}{white} % Summary (mainblue and white)
-\createbox{mydefinition}{defgreen}{defgreen!8}          % Definition (green)
-\createbox{myproperty}{violet!85!black}{violet!15}      % Property (purple)
-\createbox{mytheorem}{blue!80!black}{blue!8}            % Theorhem (blue)
-\createbox{myexample}{orange!85!black}{orange!8}        % Example (orange)
-\createbox{myremark}{purple!80!black}{purple!8}         % Remark (red)
+\createbox[colupper=mainblue]{mysummary}{mainblue}{white}{Summary} % Summary (mainblue and white)
+\createbox{mydefinition}{defgreen}{defgreen!8}{Definition: }     % Definition (green)
+\createbox{myproperty}{violet!85!black}{violet!15}{Property: }   % Property (purple)
+\createbox{mytheorem}{blue!80!black}{blue!8}{Theorem: }          % Theorem (blue)
+\createbox{myexample}{orange!85!black}{orange!8}{Example: }      % Example (orange)
+\createbox{myremark}{purple!80!black}{purple!8}{Remark: }        % Remark (red)
+
+% Code box definition
+\definecolor{keywords}{HTML}{44548A}
+\definecolor{strings}{HTML}{00999A}
+\definecolor{comments}{HTML}{990000}
+
+\newtcblisting{mycode}[1][Code]{
+    mybasebox,
+    colframe=black!60!white,
+    coltitle=black!60!white,
+    colback=black!4!white,
+    title={#1},
+    listing only,
+    listing engine=listings,
+    listing options={
+        language=C++,
+        frame=none,
+        basicstyle=\ttfamily \small,
+        showstringspaces=false,
+        columns=flexible,
+        literate={ö}{{\"o}}1 {ä}{{\"a}}1 {ü}{{\"u}}1,
+        %xleftmargin=20pt,xrightmargin=5pt,
+        aboveskip=12pt,belowskip=8pt,
+        commentstyle=\color{comments},
+        keywordstyle=\color{keywords},
+        stringstyle=\color{strings}
+    }
+}

@@ -11,7 +11,7 @@
 
 \mytitle{Tropical Semiring}
 
-\begin{mysummary}{Summary}
+\begin{mysummary}{}
   \begin{enumerate}[label=\Roman*., leftmargin=*, nosep]
     \item Definitions
     \item Properties 
@@ -24,7 +24,7 @@
 
 The \textbf{tropical semiring} is also called the \textbf{min-plus algebra} (or \textbf{max-plus algebra}).
 
-\begin{mydefinition}{Definition: Semiring}
+\begin{mydefinition}{Semiring}
 A \textbf{semiring} is a set $S$ equipped with two binary operations $+$ and $\cdot$, called addition and multiplication, such that:
 \begin{enumerate}
     \item $\oplus$ is associative: $(a \oplus b) \oplus c = a \oplus (b \oplus c)$.
@@ -37,7 +37,7 @@ A \textbf{semiring} is a set $S$ equipped with two binary operations $+$ and $\c
 
 \textbf{Remark:} The difference between a ring and a semiring is that the semiring relaxes the condition that each element of $S$ must have an inverse with respect to $\oplus$: for every element $a \in S$, there must exist an element $-a$ such that $a \oplus (-a) = 0_S$.
 
-\begin{mytheorem}{Theorem: Tropical semiring}
+\begin{mytheorem}{Tropical semiring}
 The tropical semiring is a semiring. We denote the law $\oplus$ as $\min$ and the law $\otimes$ as $+$. The identity element for $\oplus$ is $+\infty$ and the identity element for $\otimes$ is $0$.
 \end{mytheorem}
 
@@ -84,7 +84,7 @@ One of the most important properties of the tropical semiring is \textbf{"tropic
     \]
 \end{itemize}
 
-\begin{myproperty}{Property: Associativity of Matrix Multiplication}
+\begin{myproperty}{Associativity of Matrix Multiplication}
 In both semirings, matrix multiplication is associative.
 \end{myproperty}
 
@@ -105,7 +105,7 @@ D_{2,ij} &= \bigoplus_k A_{ik} \otimes \left( \bigoplus_l B_{kl} \otimes C_{lj} 
 So $D_{1,ij} = D_{2,ij}$.
 \end{proof}
 
-\begin{mydefinition}{Definition: Identity Matrix}
+\begin{mydefinition}{Identity Matrix}
 On the tropical semiring, the idendity matrix is the matrix with $0$ on the diagonal and $\infty$ elsewhere.
 \end{mydefinition}
 
@@ -119,11 +119,11 @@ On the tropical semiring, the idendity matrix is the matrix with $0$ on the diag
 
 The two main applications are \textbf{fast matrix exponentiation} and \textbf{range matrix multiplication}.
 
-\subsection*{1) Fast Matrix Exponentiation}
+\subsection*{1) Fast matrix exponentiation}
 
 Similarly to the ordinary semiring, due to associativity, it's possible to use fast matrix exponentiation on tropical matrix multiplication.
 
-\begin{myexample}{Example: Shortest path with exactly $k$ edges}
+\begin{myexample}{Shortest path with exactly $k$ edges}
 Consider a weighted directed graph and its adjacency matrix $D$:
 \begin{itemize}
     \item $D[i][j] = \text{weight of the edge } (i,j)$
@@ -134,7 +134,7 @@ that can be computed using fast matrix exponentiation.
 
 \textbf{Remark: } The problem is closely related to the Floyd-Warshall algorithm that computes the shortest distance between all pairs of nodes. The difference is that Floyd-Warshall can use any number of edges, whereas tropical matrix exponentiation uses exactly $k$ edges. Floyd-Warshall is generally used when the number of vertices is small, and tropical matrix exponentiation when the number of steps is very large and we care about the exact number of steps.
 
-\subsection*{2) Range Matrix Multiplication}
+\subsection*{2) Range matrix multiplication}
 
 Consider a problem where we have an array of matrices $A = [A_1, \dots, A_n]$ and we would like to be able to perform 2 opearations:
 
