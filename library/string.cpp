@@ -184,9 +184,9 @@ vector<int> zAlgo(string s) {
  *
  * Lexicographically minimal string rotation
  * 
- * Based on https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation#
+ * Based on https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation
  * 
- * Naive implementation would be O(n^2), this algorithm work in O(n)
+ * Naive implementation would be O(n^2) but this algorithm works in O(n)
  * 
  */
 

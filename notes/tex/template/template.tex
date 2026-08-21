@@ -7,7 +7,9 @@
 
 % Font settings
 \usepackage[T1]{fontenc}
-\usepackage{libertine}
+%\usepackage{libertine}
+\usepackage{tgpagella}
+\linespread{1.05}
 
 \usepackage{hyperref}
 \hypersetup{
@@ -62,13 +64,14 @@
 
 % Boxes definition
 \definecolor{defgreen}{RGB}{42, 92, 42}
+\definecolor{maroon}{RGB}{128,0,0}
 
 % Standard boxes
 \createbox[colupper=mainblue]{mysummary}{mainblue}{white}{Summary} % Summary (mainblue and white)
 \createbox{mydefinition}{defgreen}{defgreen!8}{Definition: }     % Definition (green)
 \createbox{myproperty}{violet!85!black}{violet!15}{Property: }   % Property (purple)
 \createbox{mytheorem}{blue!80!black}{blue!8}{Theorem: }          % Theorem (blue)
-\createbox{myexample}{orange!85!black}{orange!8}{Example: }      % Example (orange)
+\createbox{myexample}{maroon!85!black}{maroon!8}{Example: }       % Example (orange)
 \createbox{myremark}{purple!80!black}{purple!8}{Remark: }        % Remark (red)
 
 % Code box definition

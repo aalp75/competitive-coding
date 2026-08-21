@@ -22,7 +22,20 @@
 
 \section*{I. Definitions}
 
+\begin{mydefinition}{Tropical semiring}
+    The tropical semiring is a special algebraic structure where the usual operations $+$ and $\times$ are replaced by the tropical addition $a \oplus b = \min(a, b)$ and the tropical multiplication $a \otimes b = a + b$. It is usually defined on $\overline{\mathbb{R}} = \mathbb{R} \cup \ \{\infty\}$ or $\overline{\mathbb{N}} = \mathbb{N} \cup \ \{\infty\}$ in computer science.
+\end{mydefinition}
+    
+\begin{myexample}{}
+$7 \oplus 3 = \min(7, 3) = 3$
+
+$7 \otimes 3 = 7 + 3 = 10$   
+\end{myexample}
+
 The \textbf{tropical semiring} is also called the \textbf{min-plus algebra} (or \textbf{max-plus algebra}).
+
+\textbf{Remark:} In this document we consider the min-plus algebra but everything is equivalent if we replace the min operation by a max operation (max-plus algebra).
+
 
 \begin{mydefinition}{Semiring}
 A \textbf{semiring} is a set $S$ equipped with two binary operations $+$ and $\cdot$, called addition and multiplication, such that:
@@ -35,13 +48,11 @@ A \textbf{semiring} is a set $S$ equipped with two binary operations $+$ and $\c
 \end{enumerate}
 \end{mydefinition}
 
-\textbf{Remark:} The difference between a ring and a semiring is that the semiring relaxes the condition that each element of $S$ must have an inverse with respect to $\oplus$: for every element $a \in S$, there must exist an element $-a$ such that $a \oplus (-a) = 0_S$.
+\textbf{Remark:} The difference between a ring and a semiring is that the semiring relaxes the condition that each element of $S$ must have an inverse with respect to $\oplus$ (for every element $a \in S$, there must exist an element $-a$ such that $a \oplus (-a) = 0_S$).
 
 \begin{mytheorem}{Tropical semiring}
 The tropical semiring is a semiring. We denote the law $\oplus$ as $\min$ and the law $\otimes$ as $+$. The identity element for $\oplus$ is $+\infty$ and the identity element for $\otimes$ is $0$.
 \end{mytheorem}
-
-\textbf{Remark:} In this document we consider the min-plus algebra but everything is equivalent if we replace the min operation by a max operation (max-plus algebra).
 
 \begin{proof}
 Let's prove all five required conditions:
@@ -71,7 +82,7 @@ Let's prove all five required conditions:
 
 \section*{II. Properties}
 
-One of the most important properties of the tropical semiring is \textbf{"tropical matrix multiplication"}. Tropical matrix multiplication is ordinary matrix multiplication where we replace the two scalar operations $+$ and $\times$ by $\min$ and $+$.
+One of the most important property of the tropical semiring is \textbf{tropical matrix multiplication}. Tropical matrix multiplication is the same concept of ordinary matrix multiplication but the two scalar operations $+$ and $\times$ are replaced by the tropical operations $\min$ and $+$.
 
 \begin{itemize}
     \item \textbf{Ordinary matrix multiplication}: $D = A \cdot B$
@@ -85,7 +96,7 @@ One of the most important properties of the tropical semiring is \textbf{"tropic
 \end{itemize}
 
 \begin{myproperty}{Associativity of Matrix Multiplication}
-In both semirings, matrix multiplication is associative.
+In both semirings, matrix multiplication is associative. It implies that we can compute the multiplication in any order.
 \end{myproperty}
 
 \begin{proof}
@@ -106,7 +117,15 @@ So $D_{1,ij} = D_{2,ij}$.
 \end{proof}
 
 \begin{mydefinition}{Identity Matrix}
-On the tropical semiring, the idendity matrix is the matrix with $0$ on the diagonal and $\infty$ elsewhere.
+On the tropical semiring, the identity matrix is the matrix with $0$ on the diagonal and $\infty$ elsewhere.
+\[
+I_{n} = \begin{pmatrix}
+0 & \infty & \cdots & \infty \\
+\infty & 0 & \cdots & \infty \\
+\vdots & \vdots & \ddots & \vdots \\
+\infty & \infty & \cdots & 0
+\end{pmatrix}
+\]
 \end{mydefinition}
 
 \[
@@ -117,7 +136,7 @@ On the tropical semiring, the idendity matrix is the matrix with $0$ on the diag
 
 \section*{III. Applications}
 
-The two main applications are \textbf{fast matrix exponentiation} and \textbf{range matrix multiplication}.
+Some applications of the tropical semiring are \textbf{fast matrix exponentiation} and \textbf{range matrix multiplication}.
 
 \subsection*{1) Fast matrix exponentiation}
 
