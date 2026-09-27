@@ -2,6 +2,7 @@
     "configurations": [
         {
             "name": "Linux",
+            "compilerPath": "/usr/bin/g++-11",
             "includePath": [
                 "${workspaceFolder}/**"
             ],

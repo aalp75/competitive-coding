@@ -102,6 +102,7 @@ void precompute_fact() {
 }
 
 long long binomial_coeff(int n, int k) {
+    if (k < 0 || k > n) return 0;
     return fact[n] * (fact_inv[n - k] * fact_inv[k] % MOD) % MOD;
 }
 
