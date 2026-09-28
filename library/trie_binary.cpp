@@ -75,7 +75,7 @@ void add(int x) {
     trie[node].end++;
 }
 
-// compute the maximum XOR with s possible
+// compute the max (x ^ e) accros all elements e of the trie
 // it assumes that the trie is not empty
 // otherwise it will return 0
 int computeXor(int x) {
@@ -105,27 +105,41 @@ int computeXor(int x) {
     return res;
 }
 
-// find the k-th smaller values x ^ e among all elements e
+/** 
+ * find the k-th smallest values x ^ e among all elements of the trie e
+ * k must be between 1 and n (number of elements in the trie)
+ * findkth(x, 1) is the smallest and findkth(x, n) the largest
+ */
 int findkth(int x, int k) {
     int node = 0;
     int res = 0;
     for (int b = B; b >= 0; b--) {
         int p2 = 1 << b;
-        int pref = trie[node].childs[0];
-        int opp = trie[node].childs[1];
-        if (p2 & x) swap(pref, opp);
+        int bit = (p2 & x) ? 1 : 0;
 
-        int cnt = 0;
-        if (pref != 0) {
-            cnt = trie[pref].cnt;
+        // no choice
+        if (trie[node].childs[1] == 0) {
+            node = trie[node].childs[0];
+            if (bit) res |= p2;
+            continue;
         }
+
+        // no choice
+        if (trie[node].childs[0] == 0) {
+            node = trie[node].childs[1];
+            if (!bit) res |= p2;
+            continue;
+        }
+
+        // there is choice - can I take the smaller?
+        int cnt = trie[trie[node].childs[bit]].cnt;
         if (k <= cnt) {
-            node = pref;
+            node = trie[node].childs[bit];
         }
         else {
             k -= cnt;
+            node = trie[node].childs[bit ^ 1];
             res |= p2;
-            node = opp;
         }
     }
     return res;
