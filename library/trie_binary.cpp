@@ -53,11 +53,11 @@ void clear() {
     nodeIte = 1;
 }
 
-void add(int x) {
+void add(long long x) {
     int node = 0;
     trie[node].cnt++;
     for (int b = B; b >= 0; b--) {
-        int p2 = 1 << b;
+        long long p2 = 1ll << b;
         if (x & p2) {
             if (trie[node].childs[1] == 0) {
                 trie[node].childs[1] = nodeIte++;
@@ -78,11 +78,11 @@ void add(int x) {
 // compute the max (x ^ e) accros all elements e of the trie
 // it assumes that the trie is not empty
 // otherwise it will return 0
-int computeXor(int x) {
+long long computeXOR(long long x) {
     int node = 0;
-    int res = 0;
+    long long res = 0;
     for (int b = B; b >= 0; b--) {
-        int p2 = 1 << b;
+        long long p2 = 1ll << b;
         if (x & p2) {
             if (trie[node].childs[0] != 0) {
                 node = trie[node].childs[0];
@@ -110,11 +110,11 @@ int computeXor(int x) {
  * k must be between 1 and n (number of elements in the trie)
  * findkth(x, 1) is the smallest and findkth(x, n) the largest
  */
-int findkth(int x, int k) {
+long long findkth(long long x, int k) {
     int node = 0;
-    int res = 0;
+    long long res = 0;
     for (int b = B; b >= 0; b--) {
-        int p2 = 1 << b;
+        long long p2 = 1ll << b;
         int bit = (p2 & x) ? 1 : 0;
 
         // no choice
@@ -147,11 +147,11 @@ int findkth(int x, int k) {
 
 // remove one (and only one) occurence of s from the trie
 // it assumes that the number x is in the trie
-void erase(int x) {
+void erase(long long x) {
     int node = 0;
     trie[node].cnt--;
     for (int b = B; b >= 0; b--) {
-        int p2 = 1 << b;
+        long long p2 = 1ll << b;
         int par = node;
         int bit = (x & p2) ? 1 : 0;
 
@@ -171,13 +171,13 @@ int main() {
     add(7);
     add(8);
 
-    cout << computeXor(11) << '\n'; // 14
+    cout << computeXOR(11) << '\n'; // 14
 
     erase(7);
     
-    cout << computeXor(8) << '\n'; // 13
+    cout << computeXOR(8) << '\n'; // 13
 
-    cout << findkth(3, 2) << '\n'; // 
+    cout << findkth(3, 2) << '\n'; // 6
 
     return 0;
 }
