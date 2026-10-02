@@ -18,6 +18,7 @@ using namespace std;
  *  - l, r: what you want to update
  * 
  * operations:
+ * - initialisation: SegTreeLazy<int> segtree(n)
  * - compute f([l, r]): compute(1, 0, n - 1, l, r)
  * - update v[i] += x for i in [l, r]: update(1, 0, n - 1, l, r, x)
  */
