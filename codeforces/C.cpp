@@ -1,25 +1,43 @@
 //#pragma GCC optimize("O3")
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cassert>
+#include <chrono>
+#include <cmath>
+#include <cstdint>
+#include <cstring>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <ranges>
+#include <set>
+#include <vector>
 
-#ifndef ONLINE_JUDGE
+using namespace std;
+
+#ifdef DEBUG
 #include "../debug.h"
 #else
 #define debug(...)
 #endif
 
-using namespace std;
-
 using ll = long long;
 
 const ll MOD = 998'244'353;
 int INF32 = 1e9 + 100;
-ll INF64 = 2e18+ 100;
+ll INF64 = 2e18 + 100;
 
 void preprocess() {
+    
 }
 
 void solve(int test_case) {
-    cerr << "test case #" << test_case << '\n';
+    
 }
 
 int main() {
@@ -32,6 +50,5 @@ int main() {
     for (int i = 1; i <= t; i++) {
         solve(i);
     }
-    cerr << "Successful\n";
     return 0;
 }
