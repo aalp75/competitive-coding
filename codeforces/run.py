@@ -87,6 +87,10 @@ def check_solution(files):
 
     os.remove(f"{program_name}.out")
 
+def run_custom_test():
+	os.system(f"./{program_name}.out")
+	os.remove(f"{program_name}.out")
+
 def parse_arguments():
     program_name = sys.argv[1]
     problem_number = sys.argv[2] if len(sys.argv) > 2 else None
@@ -98,6 +102,7 @@ if __name__ == "__main__":
 
     program_name, problem_number, debug = parse_arguments()
 
+<<<<<<< HEAD
     compile(program_name, problem_number, debug)
 
     current_dir = Path(__file__).parent
@@ -109,5 +114,24 @@ if __name__ == "__main__":
         files = (tests.glob(f"{program_name}-{problem_number}.in"))
 
     check_solution(files)
+=======
+	print(problem_number)
+
+	compile(program_name, problem_number, debug)
+
+	if int(problem_number) == -1:
+		run_custom_test()
+
+	else:
+		current_dir = Path(__file__).parent
+		tests = current_dir / "tests"
+
+		if problem_number is None:
+			files = sorted(tests.glob(f"{program_name}-*.in"))
+		else:
+			files = (tests.glob(f"{program_name}-{problem_number}.in"))
+
+		check_solution(files)
+>>>>>>> 92edc6a (add custom test)
 
 
