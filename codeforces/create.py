@@ -71,6 +71,8 @@ def create_codeforces(problem_name, html):
         input_text = codeforces_parse_class(inp)
         answer_text = codeforces_parse_class(ans)
 
+        os.makedirs("tests", exist_ok=True)
+
         create_file(file_name + ".in", input_text)
         create_file(file_name + ".ans", answer_text)
         print(file_name + " created")
@@ -97,6 +99,8 @@ def create_atcoder(problem_name, html):
         sample = h3.find_next("pre")
         answer_text = sample.get_text(" ", strip=True)
 
+        os.makedirs("tests", exist_ok=True)
+
         file_name = "tests/" + problem_name + "-" + str(sample_nb)
 
         create_file(file_name + ".in", input_text)
@@ -119,14 +123,3 @@ if __name__ == "__main__":
     delete_files(problem_name)    
 
     create(problem_name, url)
-
-
-
-
-
-
-
-
-
-
-
