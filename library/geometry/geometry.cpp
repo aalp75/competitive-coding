@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+#include <vector>
+#include <cmath>
+#include <string>
+#include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -8,6 +12,8 @@ using namespace std;
  * Point2d, Line are based on https://victorlecomte.com/cp-geo.pdf
  * 
  */
+
+const long double PI = acos(-1.0);
 
 /**
  * grid rotation (90 degree counter clockwise) 
