@@ -103,20 +103,33 @@ def create_atcoder(problem_name, html):
         create_file(file_name + ".ans", answer_text)
         print(file_name + " created")
 
-def create(problem_name, url):
+def create(name, webiste, contest, problem):
+
+    if website == "cf":
+        url = f"https://codeforces.com/contest/{contest}/problem/{problem}"
+    elif website == "ac":
+        url = f"https://atcoder.jp/contests/{contest}/tasks/{contest}_{round}"
+    else:
+        print(f"{website} cannot be parsed")
+        return
+
     html = get_html(url)
-    if 'codeforces' in url:
-        create_codeforces(problem_name, html)
-    elif 'atcoder' in url:
-        create_atcoder(problem_name, html)
+
+    if website == "cf":
+        create_codeforces(name, html)
+    elif website == 'ac':
+        create_atcoder(name, html)
     else:
         print(f"{url} cannot be parsed")
 
 
 if __name__ == "__main__":
-    problem_name = sys.argv[1]
-    url = sys.argv[2]
+    name = sys.argv[1]
+    website = sys.argv[2]
+    contest = sys.argv[3]
+    problem = sys.argv[4]
 
-    delete_files(problem_name)    
 
-    create(problem_name, url)
+    delete_files(name)    
+
+    create(name, website, contest, problem)
