@@ -17,7 +17,7 @@ struct LCA {
     vector<vector<int>> up;
     vector<int> depth;
 
-    LCA (int root, vector<vector<int>>& tree) : n(tree.size()), adj(tree) {
+    LCA(int root, vector<vector<int>>& tree) : n(tree.size()), adj(tree) {
         tin.resize(n);
         tout.resize(n);
         depth.resize(n);

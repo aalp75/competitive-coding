@@ -130,7 +130,7 @@ long double angle(Point v, Point w) {
  */
 
 bool half(Point p) {
-    assert (p.x != 0 || p.y != 0) // undefined behavior for (0, 0)
+    assert (p.x != 0 || p.y != 0); // undefined behavior for (0, 0)
     return p.y > 0 || (p.y == 0 && p.x > 0);
 }
 

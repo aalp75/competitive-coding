@@ -4,6 +4,8 @@
 
 using namespace std;
 
+const int INF32 = 1e9 + 10;
+
 /**
  * Bellman-Ford algorithm
  * 

@@ -3,9 +3,6 @@
 # Ignore all files in /codeforces/ without a dot
 codeforces/[!.]*
 !codeforces/*.* 
-# Ignore all files in /library/ without a dot
-library/[!.]*
-!library/*.*
 # Ignore all files in /template/ without a dot
 template/[!.]*
 !template/*.*

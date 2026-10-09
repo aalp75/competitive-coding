@@ -2,6 +2,8 @@ import sys
 import os
 import time
 import filecmp
+import resource
+import cloudscraper
 
 from pathlib import Path
 
@@ -9,12 +11,14 @@ GREEN = '\033[92m'
 RED = '\033[91m'
 END = '\033[0m'
 
+DEBUG_FLAG = "debug"
+
 def normalize(text):
 	return ".".join(text.split())
 
 def compile(program_name, problem_number, debug):
 
-	if debug == "DEBUG" or problem_number is None:
+	if debug == DEBUG_FLAG or problem_number is not None:
 		print(f"[DEBUG MODE] Compiling {program_name}.cpp with C++23")
 		os.system(f"g++ -DDEBUG {program_name}.cpp -o {program_name}.out")
 	else:
@@ -33,7 +37,7 @@ def check_solution(files):
 
 		test_name = file.stem
 
-		print(f"Running {test_name}:")
+		print(f"Running {test_name}")
 
 		input_name = test_name + ".in"
 		output_name = test_name + ".out"
@@ -42,8 +46,10 @@ def check_solution(files):
 		start_time = time.time()
 		os.system(f"./{program_name}.out < tests/{input_name} > tests/{output_name}")
 		time_elapsed = time.time() - start_time
+		usage = resource.getrusage(resource.RUSAGE_CHILDREN)
 
-		print(f"Total time: {time_elapsed:.3f}s")
+		print(f"Time: {time_elapsed:.3f}s")
+		print(f"Memory: {usage.ru_maxrss / 1024:.2f} MB") # only for linux TODO for mac
 
 		inp = Path(f"tests/{input_name}").read_text()
 		out = Path(f"tests/{output_name}").read_text()
@@ -94,7 +100,7 @@ if __name__ == "__main__":
 
 	compile(program_name, problem_number, debug)
 
-	if int(problem_number) == -1:
+	if problem_number is not None and int(problem_number) == -1:
 		run_custom_test()
 
 	else:

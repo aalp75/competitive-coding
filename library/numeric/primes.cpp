@@ -15,10 +15,10 @@ vector<int> primes;
 
 void prime_sieve() {
     vector<bool> is_prime(N, true);
-    for (int i = 2; i < N; i++) {
+    for (long long i = 2; i < N; i++) {
         if (!is_prime[i]) continue;
         primes.push_back(i);
-        for (int j = i * i; j < N; j += i) {
+        for (long long j = i * i; j < N; j += i) {
             is_prime[j] = false;
         }
     }
@@ -29,11 +29,11 @@ vector<int> spf(N, 1); // smallest prime factor
 
 void prime_factor_sieve() {
     vector<bool> is_prime(N, true);
-    for (int i = 2; i < N; i++) {
+    for (long long i = 2; i < N; i++) {
         if (!is_prime[i]) continue;
         primes.push_back(i);
         spf[i] = i;
-        for (int j = 2 * i; j < N; j += i) {
+        for (long long j = 2 * i; j < N; j += i) {
             is_prime[j] = false;
             if (spf[j] == 1) spf[j] = i;
         }

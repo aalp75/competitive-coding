@@ -7,6 +7,8 @@ import re
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 
+import cloudscraper
+
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
 }
@@ -30,17 +32,11 @@ def create_file(name, text):
 
 def get_html(url):
 
-    req = Request(url, headers=HEADERS)
+    scraper = cloudscraper.create_scraper()
+    response = scraper.get(url)
 
-    try:
-        with urlopen(req) as response:
-            # Access status on successful HTTP responses (e.g., 200 OK)
-            html = response.read().decode('utf-8')
-            return html
-    except HTTPError as e:
-        print("Status code:", e.code)
-    except URLError as e:
-        print("Network error:", e.reason)
+    print(f"Status Code {response.status_code}")
+    return response.text
 
 def codeforces_parse_class(soup):
     pre = soup.find("pre")
@@ -115,6 +111,7 @@ def create(problem_name, url):
         create_atcoder(problem_name, html)
     else:
         print(f"{url} cannot be parsed")
+
 
 if __name__ == "__main__":
     problem_name = sys.argv[1]
