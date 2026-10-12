@@ -108,10 +108,12 @@ def create(name, webiste, contest, problem):
     if website == "cf":
         url = f"https://codeforces.com/contest/{contest}/problem/{problem}"
     elif website == "ac":
-        url = f"https://atcoder.jp/contests/{contest}/tasks/{contest}_{round}"
+        url = f"https://atcoder.jp/contests/{contest}/tasks/{contest}_{problem}"
     else:
         print(f"{website} cannot be parsed")
         return
+
+    print(url, end=' - ')
 
     html = get_html(url)
 

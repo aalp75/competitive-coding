@@ -25,7 +25,12 @@ long long mul(const long long x, const long long y) { // x * y
 }
 
 /**
- * The inverse function only work when MOD is a prime number
+ * The inverse function works if x and MOD and primes, hence if MOD
+ * is prime it works for every number
+ * 
+ * In the ring Z/nZ the inversible elements are  all elements 
+ * such that gcd(x, n) = 1. For example in Z/Z8 the inversible
+ * elements are 1, 3, 5, 7
  * 
  * For non prime modulo, use the inverse2 below function
  * based on the extended euclidean algorithm

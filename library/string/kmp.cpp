@@ -14,7 +14,6 @@ const long long INF64 = 1e18;
  * Compute the prefix function pi[i] = ...
  */
 
-
 vector<int> kmp(const string &s) {
 	int n = (int)s.size();
 	vector<int> pi(n);

@@ -3,12 +3,8 @@ import os
 import time
 import filecmp
 import resource
-import cloudscraper
-import platform
-import traceback
-from pathlib import Path
 
-OS = platform.system()
+from pathlib import Path
 
 GREEN = '\033[92m'
 RED = '\033[91m'
@@ -21,21 +17,14 @@ def normalize(text):
 
 def compile(program_name, problem_number, debug):
 
-    compiler = "clang++" if OS == "Darwin" else "g++"
+	if debug == DEBUG_FLAG or problem_number is not None:
+		print(f"[DEBUG MODE] Compiling {program_name}.cpp with C++23")
+		os.system(f"g++ -DDEBUG {program_name}.cpp -o {program_name}.out")
+	else:
+		print(f"Compiling {program_name}.cpp with C++23")
+		os.system(f"g++ {program_name}.cpp -o {program_name}.out")
 
-    start_time = time.time()
-
-    if debug == DEBUG_FLAG or problem_number is None:
-        print(f"[DEBUG MODE] Compiling {program_name}.cpp with {compiler} C++23")
-        result = os.system(f"{compiler} -std=c++23 -DDEBUG {program_name}.cpp -o {program_name}.out")
-    else:
-        print(f"Compiling {program_name}.cpp with {compiler} C++23")
-        result = os.system(f"{compiler} -std=c++23 {program_name}.cpp -o {program_name}.out")
-
-    if not result == 0:
-        raise Exception("Compilation failed!")
-
-def check_solution(files, program_name):
+def check_solution(program_name, files):
 
 	tests_total = 0
 	tests_passed = 0
@@ -104,32 +93,24 @@ def parse_arguments():
 
 	return program_name, problem_number, debug
 
-def run():
-
-    program_name, problem_number, debug = parse_arguments()
-
-    compile(program_name, problem_number, debug)
-
-    if problem_number is not None and int(problem_number) == -1:
-        run_custom_test()
-
-    else:
-        current_dir = Path(__file__).parent
-        tests = current_dir / "tests"
-
-        if problem_number is None:
-            files = sorted(tests.glob(f"{program_name}-*.in"))
-        else:
-            files = (tests.glob(f"{program_name}-{problem_number}.in"))
-
-        check_solution(files, program_name)
-
-
 if __name__ == "__main__":
 
-    try:
-        run()
-    except Exception as e:
-        print(e)
+	program_name, problem_number, debug = parse_arguments()
+
+	compile(program_name, problem_number, debug)
+
+	if problem_number is not None and int(problem_number) == -1:
+		run_custom_test()
+
+	else:
+		current_dir = Path(__file__).parent
+		tests = current_dir / "tests"
+
+		if problem_number is None:
+			files = sorted(tests.glob(f"{program_name}-*.in"))
+		else:
+			files = (tests.glob(f"{program_name}-{problem_number}.in"))
+
+		check_solution(program_name, files)
 
 
