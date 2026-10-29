@@ -1,7 +1,8 @@
 #include <string>
 #include <iostream>
+#include <vector>
 
-uisng namespace std;
+using namespace std;
 
 /**
  * Polynomial hashing

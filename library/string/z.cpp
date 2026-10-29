@@ -21,16 +21,28 @@ using namespace std;
  * Complexity: O(n)
  */
 
-vector<int> zAlgo(string s) {
+vector<int> zAlgo(string& s) {
     int n = s.size();
     vector<int> z(n, 0);
-    int x = 0, y = 0;
+
+    int l = 0;
+    int r = 0;
+
     for (int i = 1; i < n; i++) {
-        z[i] = max(0, min(z[i - x], y - i + 1));
-        while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
-            x = i; 
-            y = i + z[i];
+        if (i < r) {
+            // we are in Z-box [l, r[ so we know 
+            // that z[i] is at least equal to z[i - l]
+            z[i] = min(r - i, z[i - l]);
+        }
+
+        // can we extend the Z-box [l, r]
+        while (i + z[i] < n && s[i + z[i]] == s[z[i]]) {
             z[i]++;
+        }
+        // update the Z-box
+        if (i + z[i] > r) {
+            l = i;
+            r = z[i] + i;
         }
     }
     return z;

@@ -8,7 +8,7 @@ using namespace std;
 /**
  * find centroids of a tree
  * 
- * 1 or 2 centroids maximum (Jordan theorhem)
+ * 1 or 2 centroids maximum (Jordan's theorem)
  */
 
 vector<int> find_centroids(vector<vector<int>>& adj, int n) {

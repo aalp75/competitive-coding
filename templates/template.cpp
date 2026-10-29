@@ -28,6 +28,9 @@ using namespace std;
 
 using ll = long long;
 
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+
 const ll MOD = 998'244'353;
 int INF32 = 1e9 + 100;
 ll INF64 = 2e18 + 100;

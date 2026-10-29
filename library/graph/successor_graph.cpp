@@ -73,7 +73,7 @@ void findCycle(vector<int>& succ, int start) {
 
     // find the length
     b = succ[a];
-    length = 1;
+    int length = 1;
     while (a != b) {
         b = succ[b];
         length++;
