@@ -1,5 +1,6 @@
 #include <vector>
 #include <queue>
+#include <iostream>
 
 const int INF32 = 1e9 + 10;
 
@@ -8,10 +9,14 @@ using namespace std;
 /**
  * find centroids of a tree
  * 
- * 1 or 2 centroids maximum (Jordan's theorem)
+ * a centroid of a tree is defined as a node whose removal 
+ * results in no subtree having more than  n / 2
+ * 
+ * 1 or 2 centroids maximum (Jordan's theorem) and they are adjacent
+ * 
  */
 
-vector<int> find_centroids(vector<vector<int>>& adj, int n) {
+vector<int> findCentroids(vector<vector<int>>& adj, int n) {
     vector<int> centroids;
     vector<int> sz(n + 1, 0);
     vector<bool> is_centroid(n + 1, true);
@@ -36,4 +41,8 @@ vector<int> find_centroids(vector<vector<int>>& adj, int n) {
     dfs(1, -1, dfs);
     
     return centroids;
+}
+
+int main() {
+    return 0;
 }
