@@ -134,6 +134,34 @@ void precompute_binomial_coeff(int n) {
     }
 }
 
+/**
+ * Bell number: https://en.wikipedia.org/wiki/Bell_number
+ *
+ * Bn counts the different ways to partition a set that has exactly n elements.
+ *
+ * Suppose we have already computed B0, B1, ..., Bi and want to compute B[i + 1].
+ *
+ * Consider the set containing element (i + 1).
+ * Let k be the number of OTHER elements belonging to the same subset.
+ *
+ * There are comb(i, k) ways to choose these k elements.
+ * The remaining (i - k) elements can be partitioned in B[i - k] ways.
+ *
+ * Formula: B[i + 1] = sum(k = 0 to i) comb(i, k) * B[i - k]
+ */
+
+vector<long long> bell(N);
+
+void precomputeBell() {
+    bell[0] = 1;
+
+    for (int i = 1; i < N; i++) {
+        for (int k = 0; k < i; k++) {
+            bell[i] = (bell[i] + binomial_coeff(i - 1, k) * bell[i - 1 - k]) % MOD;
+        }
+    }
+}
+
 // 128 bits integer MAX INT = 2^127 (~1.7 × 10^38)
 using i128 = __int128;
 
